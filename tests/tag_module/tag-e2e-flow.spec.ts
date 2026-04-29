@@ -1,18 +1,22 @@
 import { test, expect } from '@playwright/test';
-import { SELECTORS, TagModuleHelpers } from './setup';
+import { SELECTORS, TagModuleHelpers, TestDataGenerator } from './setup';
 
 test.describe('Tag Module End-to-End Flow', () => {
   let helpers: TagModuleHelpers;
-  const prefix = 'Test_SG1';
 
   test.beforeEach(async ({ page }) => {
     helpers = new TagModuleHelpers(page);
     await helpers.login();
     await helpers.navigateToTagModule();
-    await helpers.deleteTagIfExistsByPrefix(prefix);
   });
 
   test('TC-E2E: Click Tag module, add tag prefix Test_SG1, save and verify toaster', async ({ page }) => {
+    // Use a unique prefix to avoid conflicts
+    const prefix = TestDataGenerator.generateUniqueTagPrefix('TEST_SG1');
+    
+    // Delete if exists from previous runs
+    await helpers.deleteTagIfExistsByPrefix(prefix);
+    
     // Click on + New Tag button
     await helpers.openNewTagModal();
 

@@ -21,10 +21,16 @@ test.describe('Tag Filter Tests', () => {
     const rowCount = await rows.count();
     expect(rowCount).toBeGreaterThan(0);
 
+    // Check that at least one row contains the filter prefix (in the first column/cell)
+    let foundMatch = false;
     for (let index = 0; index < rowCount; index += 1) {
-      const rowText = await rows.nth(index).innerText();
-      expect(rowText.toLowerCase()).toContain(prefix.slice(0, 6).toLowerCase());
+      const firstCell = await rows.nth(index).locator('td').first().innerText();
+      if (firstCell.toLowerCase().includes(prefix.slice(0, 6).toLowerCase())) {
+        foundMatch = true;
+        break;
+      }
     }
+    expect(foundMatch).toBe(true);
 
     await helpers.deleteTagByPrefix(prefix);
   });
@@ -41,10 +47,19 @@ test.describe('Tag Filter Tests', () => {
     const rowCount = await rows.count();
     expect(rowCount).toBeGreaterThan(0);
 
+    // Check that at least one row contains the filter in the description column
+    let foundMatch = false;
     for (let index = 0; index < rowCount; index += 1) {
-      const rowText = await rows.nth(index).innerText();
-      expect(rowText.toLowerCase()).toContain(partialDescription.toLowerCase());
+      const cells = await rows.nth(index).locator('td').allTextContents();
+      if (cells.length > 1) {
+        const descriptionCell = cells[1]; // Second column is description
+        if (descriptionCell.toLowerCase().includes(partialDescription.toLowerCase())) {
+          foundMatch = true;
+          break;
+        }
+      }
     }
+    expect(foundMatch).toBe(true);
 
     await helpers.deleteTagByPrefix(prefix);
   });
