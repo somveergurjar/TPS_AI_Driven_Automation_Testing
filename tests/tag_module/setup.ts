@@ -6,7 +6,7 @@ export const TEST_CONFIG = {
   tagModuleUrl: 'https://dev.liveaccess.ai/tag',
   credentials: {
     email: 'somveergurjar.megaminds@gmail.com',
-    password: 'Qwert@1234'
+    password: 'Qwert@123'
   },
   timeouts: {
     navigation: 30000,
@@ -36,7 +36,7 @@ export const SELECTORS = {
   tagDescriptionInput: 'input[placeholder*="description"]',
   saveTagButton: 'button:has-text("Save Tag")',
   cancelTagButton: 'button:has-text("Cancel")',
-  closeModalButton: 'button:has-text("×")',
+  closeModalButton: '.flex.items-center.justify-between.px-6 > .p-1\\.5',
   validationMessagePrefix: 'text=/Tag Prefix.*required/i',
   deleteActionIcon: 'button:has-text("Delete")',
   toastSuccess: 'text=/deleted successfully/i',
