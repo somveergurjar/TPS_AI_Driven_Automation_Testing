@@ -23,8 +23,8 @@ export const SELECTORS = {
   totalRecordsCount: 'text=/\\d+ records?/i',
   newTagButton: 'button:has-text("New Tag")',
   resetFiltersButton: 'button:has-text("Reset Filters")',
-  tagPrefixFilter: 'input[placeholder="Filter..."]',
-  tagDescriptionFilter: 'input[placeholder="Filter..."]',
+  tagPrefixFilter: 'th:has-text("TAG PREFIX") input[placeholder="Filter..."]',
+  tagDescriptionFilter: 'th:has-text("TAG DESCRIPTION") input[placeholder="Filter..."]',
   applyFiltersButton: 'button:has-text("Apply")',
   tagTable: 'table',
   tagTableRows: 'table tbody tr',
@@ -38,10 +38,14 @@ export const SELECTORS = {
   cancelTagButton: 'button:has-text("Cancel")',
   closeModalButton: '.flex.items-center.justify-between.px-6 > .p-1\\.5',
   validationMessagePrefix: 'text=/Tag Prefix.*required/i',
-  deleteActionIcon: 'button:has-text("Delete")',
+  deleteActionIcon: 'button:has(svg.lucide-trash2)',
   toastSuccess: 'text=/deleted successfully/i',
   toastSaveSuccess: 'text=/saved successfully/i',
-  noResultsMessage: 'text=/no records found/i'
+  noResultsMessage: 'text=/No tags found matching your filters/i',
+  deleteModal: 'text=/Delete Tag/i',
+  deleteModalPrefix: 'p:has-text("Are you sure")',
+  deleteConfirmButton: 'button:has-text("Delete")',
+  deleteCancelButton: 'button:has-text("Cancel")'
 };
 
 export class TagModuleHelpers {
@@ -218,12 +222,18 @@ export class TagModuleHelpers {
   }
 
   async findRowByPrefix(prefix: string) {
+    // Apply filter to ensure the tag is visible
+    await this.applyFilter(SELECTORS.tagPrefixFilter, prefix);
+
     // Try multiple selectors to find the row
     const row = this.page.locator(`table tbody tr:has-text("${prefix}")`).first();
     return row;
   }
 
   async deleteTagByPrefix(prefix: string) {
+    // Apply filter to ensure the tag is visible
+    await this.applyFilter(SELECTORS.tagPrefixFilter, prefix);
+
     // Wait for the row to appear (max 5 seconds)
     let row = this.page.locator(`table tbody tr:has-text("${prefix}")`).first();
     
@@ -241,11 +251,6 @@ export class TagModuleHelpers {
     // Scroll row into view
     await row.scrollIntoViewIfNeeded();
     
-    // Set up dialog handler before clicking delete
-    this.page.once('dialog', async (dialog) => {
-      await dialog.accept();
-    });
-    
     // Find and click the delete button in the row
     const deleteButton = row.locator(SELECTORS.deleteActionIcon).first();
     
@@ -256,8 +261,22 @@ export class TagModuleHelpers {
       await deleteButton.click({ force: true });
     }
     
-    // Wait for success toast or row to disappear
-    await this.page.waitForSelector(SELECTORS.toastSuccess, { timeout: TEST_CONFIG.timeouts.action }).catch(() => {});
+    // Wait for delete confirmation modal
+    await this.page.waitForSelector(SELECTORS.deleteModal, { timeout: TEST_CONFIG.timeouts.element });
+    
+    // Verify the modal displays the correct tag prefix
+    const modalPrefixText = await this.page.locator(SELECTORS.deleteModalPrefix).innerText();
+    expect(modalPrefixText).toContain(prefix);
+    
+    // Click the Delete button in the modal
+    const confirmDeleteButton = this.page.locator(SELECTORS.deleteConfirmButton);
+    await confirmDeleteButton.click();
+    
+    // Wait for success toast
+    await this.page.waitForSelector(SELECTORS.toastSuccess, { timeout: TEST_CONFIG.timeouts.action });
+    expect(await this.page.locator(SELECTORS.toastSuccess).innerText()).toContain('Tag deleted successfully');
+    
+    // Wait a bit for the row to disappear
     await this.page.waitForTimeout(300);
   }
 
