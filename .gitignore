@@ -1,8 +1,22 @@
 
-# Playwright
+# Dependencies
 node_modules/
+
+# Environment — never commit secrets
+.env
+
+# Playwright output
 /test-results/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+
+# Allure
+allure-results/
+allure-report/
+
+# Artifacts
+*.png
+*.mp4
+*.zip

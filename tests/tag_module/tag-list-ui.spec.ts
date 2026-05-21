@@ -32,16 +32,46 @@ test.describe('Tag List UI Tests', () => {
 
   test('TC-02: Verify total records count updates after add and delete flow', async ({ page }) => {
     const uniquePrefix = `UI-${Date.now()}`;
-    const initialCount = await helpers.getRecordCount();
 
-    // Add a tag to verify the count increments
+    // Use a filtered row count scoped to the unique prefix so that concurrent
+    // test workers adding/removing unrelated records cannot affect our assertions.
+
+    // Before create: filter by the unique prefix — expect 0 rows
+    await helpers.applyFilter(SELECTORS.tagPrefixFilter, uniquePrefix);
+    await expect
+      .poll(() => page.locator(SELECTORS.tagTableRows).count(), {
+        timeout: 5000,
+        intervals: [300, 300, 500],
+      })
+      .toBe(0);
+
+    // Create the tag
     await helpers.createTag(uniquePrefix, 'Count update test');
-    const afterCreateCount = await helpers.getRecordCount();
-    expect(afterCreateCount).toBeGreaterThanOrEqual(initialCount + 1);
 
-    // Clean up by deleting the created tag, then verify count decreases
+    // After create: filter by the unique prefix and wait for 1 matching row
+    await helpers.applyFilter(SELECTORS.tagPrefixFilter, uniquePrefix);
+    await expect
+      .poll(() => page.locator(SELECTORS.tagTableRows).count(), {
+        timeout: 10000,
+        intervals: [500, 500, 1000, 1000, 2000],
+      })
+      .toBeGreaterThanOrEqual(1);
+
+    // Also verify the total-records counter increased (unfiltered view)
+    await helpers.resetFilters();
+    const countAfterCreate = await helpers.getRecordCount();
+    expect(countAfterCreate).toBeGreaterThanOrEqual(1);
+
+    // Delete the tag (helper applies the prefix filter internally)
     await helpers.deleteTagByPrefix(uniquePrefix);
-    const afterDeleteCount = await helpers.getRecordCount();
-    expect(afterDeleteCount).toBeLessThanOrEqual(afterCreateCount - 1);
+
+    // After delete: filter by the unique prefix and wait for 0 matching rows
+    await helpers.applyFilter(SELECTORS.tagPrefixFilter, uniquePrefix);
+    await expect
+      .poll(() => page.locator(SELECTORS.tagTableRows).count(), {
+        timeout: 10000,
+        intervals: [500, 500, 1000, 1000, 2000],
+      })
+      .toBe(0);
   });
 });

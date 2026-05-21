@@ -1,0 +1,45 @@
+[
+  {
+    "id": "DOC_TC_001",
+    "description": "All mandatory fields empty",
+    "input": {
+      "documentName": "",
+      "documentType": "",
+      "supplier": ""
+    },
+    "expectError": true,
+    "errorField": "all"
+  },
+  {
+    "id": "DOC_TC_002",
+    "description": "Only document name missing",
+    "input": {
+      "documentName": "",
+      "documentType": "CERTIFICATE",
+      "supplier": "IFM Electronic"
+    },
+    "expectError": true,
+    "errorField": "documentName"
+  },
+  {
+    "id": "DOC_TC_003",
+    "description": "Spaces only in document name",
+    "input": {
+      "documentName": "     ",
+      "documentType": "CERTIFICATE",
+      "supplier": "IFM Electronic"
+    },
+    "expectError": true,
+    "errorField": "documentName"
+  },
+  {
+    "id": "DOC_TC_004",
+    "description": "Valid document - all mandatory fields filled",
+    "input": {
+      "documentName": "Valid Calibration Certificate",
+      "documentType": "CERTIFICATE",
+      "supplier": "IFM Electronic"
+    },
+    "expectError": false
+  }
+]

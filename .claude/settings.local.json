@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx playwright *)",
+      "Bash(ls -la \"c:\\\\\\\\Users\\\\\\\\dell\\\\\\\\TPS\\\\\\\\tests\\\\\\\\document_module\\\\\\\\\")",
+      "Bash(node inspect_validation.js)",
+      "Bash(node inspect_dropdown_options.js)",
+      "Bash(node inspect_dropdown_interaction.js)",
+      "Bash(node inspect_supplier_dropdown.js)"
+    ]
+  }
+}

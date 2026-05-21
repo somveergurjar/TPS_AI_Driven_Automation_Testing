@@ -1,27 +1,84 @@
-name: Playwright Tests
+name: Playwright E2E Tests
+
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, develop]
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      browser:
+        description: 'Browser'
+        required: false
+        default: 'chromium'
+        type: choice
+        options: [chromium, firefox, webkit]
+      grep:
+        description: 'Test filter (grep)'
+        required: false
+        default: ''
+
+# Non-sensitive config hardcoded — no secrets warnings
+env:
+  BASE_URL:   'https://dev.liveaccess.ai'
+  LOGIN_URL:  'https://dev.liveaccess.ai/login'
+  HEADLESS:   'true'
+  WORKERS:    '1'
+  RETRIES:    '2'
+
 jobs:
   test:
-    timeout-minutes: 60
+    name: E2E Tests – ${{ matrix.browser }}
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium]
+
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm ci
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
-    - uses: actions/upload-artifact@v4
-      if: ${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+
+      - name: Run tests
+        run: npx playwright test --project=${{ matrix.browser }}
+        env:
+          CI:            'true'
+          USER_EMAIL:    ${{ secrets.USER_EMAIL }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
+
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: playwright-report/
+          retention-days: 14
+
+      - name: Upload Allure results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results-${{ matrix.browser }}
+          path: allure-results/
+          retention-days: 14
+
+      - name: Upload failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-artifacts-${{ matrix.browser }}
+          path: test-results/
+          retention-days: 7

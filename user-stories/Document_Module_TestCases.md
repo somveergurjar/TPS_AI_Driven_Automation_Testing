@@ -205,6 +205,128 @@ Hover/click action buttons
 Expected Result
 Buttons should be clickable
 
+
+# 5. identification tab - validation for mandetory feilds 
+
+Tab 1 – Identification
+# TC_DOC_IDENTIFICATION_001 – Verify validation when all mandatory fields are blank
+
+Verify that when the user clicks on the Save button without entering values in Document Name, Document Type, and Supplier fields, the system should prevent document creation and display validation messages below each field. The following validations should be displayed:
+
+"Document name is required"
+"Document type is required"
+"Supplier is required"
+# TC_DOC_IDENTIFICATION_002 – Verify Document Name mandatory field validation
+
+Verify that when the user leaves the Document Name field blank while entering valid values in Document Type and Supplier fields and clicks Save, the system should display the validation message "Document name is required" below the Document Name field and the document should not be saved.
+
+# TC_DOC_IDENTIFICATION_003 – Verify Document Type mandatory field validation
+
+Verify that when the user enters a valid Document Name and Supplier but leaves the Document Type field blank and clicks Save, the system should display the validation message "Document type is required" below the Document Type field and prevent saving the document.
+
+# TC_DOC_IDENTIFICATION_004 – Verify Supplier mandatory field validation
+
+Verify that when the user enters valid values in Document Name and Document Type fields but leaves the Supplier field blank and clicks Save, the system should display the validation message "Supplier is required" below the Supplier field and prevent document creation.
+
+# TC_DOC_IDENTIFICATION_005 – Verify validations are removed after entering valid data
+
+Verify that once the user enters valid values in all mandatory fields after validation messages are displayed, the validation messages should disappear and the user should be able to proceed with document creation successfully.
+
+# TC_DOC_IDENTIFICATION_006 – Verify red border/highlight for mandatory fields
+
+Verify that all mandatory fields display red border highlighting when validation errors are triggered after clicking Save without entering required information.
+
+# TC_DOC_IDENTIFICATION_007 – Verify system prevents document save with missing mandatory fields
+
+Verify that the system does not allow the document to be saved if any of the mandatory fields are empty.
+
+# TC_DOC_IDENTIFICATION_008 – Verify validation message placement and UI alignment
+
+Verify that validation messages are displayed correctly below their respective fields in red color without overlapping or breaking the UI layout.
+
+# TC_DOC_IDENTIFICATION_009 – Verify spaces-only input in Document Name field
+
+Verify that when the user enters only blank spaces in the Document Name field and clicks Save, the system should treat the value as empty and display the validation message "Document name is required".
+
+# TC_DOC_IDENTIFICATION_010 – Verify trimming of leading and trailing spaces
+
+Verify that when the user enters leading or trailing spaces in the Document Name field along with valid text, the system trims unnecessary spaces and saves the valid document name successfully.
+
+# TC_DOC_IDENTIFICATION_011 – Verify invalid dropdown entry for Document Type
+
+Verify that if the user types a value in the Document Type field without selecting a valid dropdown option and clicks Save, the system should display the validation message for mandatory selection if applicable.
+
+# TC_DOC_IDENTIFICATION_012 – Verify invalid dropdown entry for Supplier
+
+Verify that if the user types a value in the Supplier field without selecting an actual supplier from the dropdown and clicks Save, the system should display the validation message "Supplier is required" or prevent save based on business validation.
+
+# TC_DOC_IDENTIFICATION_013 – Verify validations after page refresh
+
+Verify that mandatory field validations continue to work correctly after refreshing the page.
+
+# TC_DOC_IDENTIFICATION_014 – Verify validations after tab switching
+
+Verify that validation messages remain accurate and functional even after navigating between Identification and Revisions tabs.
+
+# TC_DOC_IDENTIFICATION_015 – Verify multiple rapid Save clicks
+
+Verify that clicking the Save button multiple times rapidly without entering mandatory data does not create duplicate validation messages or break the UI.
+
+# TC_DOC_IDENTIFICATION_016 – Verify mandatory validations using keyboard Enter key
+
+Verify that pressing the Enter key triggers the same mandatory field validations as clicking the Save button.
+
+# TC_DOC_IDENTIFICATION_017 – Verify mandatory field behavior with browser autofill
+
+Verify that browser autofill should not bypass mandatory field validations and incomplete autofilled values should still trigger validation errors.
+
+# TC_DOC_IDENTIFICATION_018 – Verify maximum length handling in Document Name field
+
+Verify that the system properly handles very large input values in the Document Name field and displays appropriate validation if maximum length is exceeded.
+
+# TC_DOC_IDENTIFICATION_019 – Verify special character handling in Document Name field
+
+Verify that the system handles special characters entered in the Document Name field according to business rules without breaking validation logic.
+
+
+
+# 6. Revision Tab – Validation Happy Path Test Cases
+
+# TC_REV_HP_001 – Verify validation message is displayed when no revision is uploaded
+
+Verify that when the user navigates to the Revisions tab and clicks Save without uploading any revision file, the system should display the validation message:
+"A document must include at least one revision. Please upload a file before saving."
+
+
+# TC_REV_HP_002 – Verify validation message is removed after successful revision upload
+
+Verify that after uploading a valid revision file successfully, the validation message should disappear automatically and the user should be allowed to proceed with document save.
+
+# TC_REV_HP_003 – Verify successful upload of valid revision file
+
+Verify that the user is able to upload a valid revision file successfully using the "Choose files" and "Upload Revision" buttons.
+
+
+# TC_REV_HP_006 – Verify Upload Revision button behavior
+
+Verify that the "Upload Revision" button remains disabled until a valid file is selected and becomes enabled after file selection.
+
+# TC_REV_HP_007 – Verify next revision number display
+
+Verify that the system displays the correct next revision number (e.g., Rev1) before uploading the first revision.
+
+
+# TC_REV_HP_009 – Verify multiple revision uploads
+
+Verify that the user is able to upload multiple revisions successfully and each uploaded revision appears correctly in the revisions grid.
+
+# TC_REV_HP_010 – Verify file selection cancel behavior
+
+Verify that if the user clicks "Choose files" and cancels file selection, no file should be uploaded and the validation message should still appear during Save action.
+
+
+
+
 Tooltip/accessibility labels should work properly
 
 

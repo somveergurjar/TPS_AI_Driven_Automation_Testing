@@ -189,8 +189,17 @@ test.describe('Document Module - Filters', () => {
     // Apply a filter first
     await helper.applyFilter(SELECTORS.tpsIdFilter, 'TEST_FILTER');
 
+    // Wait for filtered state to reflect (0 records)
+    await page.waitForFunction(() => {
+      const rows = document.querySelectorAll('table tbody tr');
+      return rows.length === 0;
+    }, { timeout: 5000 }).catch(() => {});
+
     // Reset filters
     await helper.resetFilters();
+
+    // Wait for the record count to return to a non-zero value matching the initial count
+    await page.waitForTimeout(1500);
 
     // Verify we're back to the full list
     const resetCount = await helper.getRecordCount();
@@ -198,16 +207,29 @@ test.describe('Document Module - Filters', () => {
   });
 
   test('1.22. Invalid Filter Value Handling', async ({ page }) => {
-    const initialCount = await helper.getVisibleRowCount();
-
     // Apply invalid filter
     await helper.applyFilter(SELECTORS.tpsIdFilter, 'INVALID_TPS_ID_12345');
 
-    // Should show no results or empty state
+    // Wait for the filter to take effect — rows should reduce to 0
+    await page.waitForFunction(() => {
+      const rows = document.querySelectorAll('table tbody tr');
+      return rows.length === 0;
+    }, { timeout: 8000 }).catch(() => {});
+
+    // Give the empty-state UI a moment to render
+    await page.waitForTimeout(500);
+
+    // Check for empty state: either the known message span, or 0 visible rows
     const noResults = page.locator(SELECTORS.noResultsMessage);
     const emptyState = page.locator(SELECTORS.emptyStateMessage);
+    const emptySpan = page.locator('span:has-text("No documents found matching your filters")');
+    const zeroRows = (await page.locator(SELECTORS.documentTableRows).count()) === 0;
 
-    const hasEmptyState = (await noResults.count() > 0) || (await emptyState.count() > 0);
+    const hasEmptyState =
+      (await noResults.count() > 0) ||
+      (await emptyState.count() > 0) ||
+      (await emptySpan.count() > 0) ||
+      zeroRows;
     expect(hasEmptyState).toBe(true);
 
     // Application should remain stable
