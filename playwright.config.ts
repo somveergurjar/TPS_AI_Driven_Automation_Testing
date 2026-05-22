@@ -27,6 +27,7 @@ export default defineConfig({
     ['html',  { outputFolder: 'playwright-report', open: 'never' }],
     ['allure-playwright', { detail: true, outputFolder: 'allure-results', suiteTitle: false }],
     ['list'],
+    ['./src/reporters/failure-screenshot.reporter.ts'],
     ...(isCI ? [['github'] as ['github']] : []),
   ],
 

@@ -14,17 +14,25 @@ test.describe('Tag Create, Delete and Persistence Tests', () => {
     const prefix = TestDataGenerator.generateUniqueTagPrefix('CREATE');
     const description = TestDataGenerator.generateUniqueTagDescription('Create Test');
 
-    const initialCount = await helpers.getRecordCount();
+    // Scope to unique prefix so parallel workers don't interfere
+    await helpers.applyFilter(SELECTORS.tagPrefixFilter, prefix);
+    await expect
+      .poll(() => page.locator(SELECTORS.tagTableRows).count(), { timeout: 5000 })
+      .toBe(0);
+
     await helpers.createTag(prefix, description);
 
+    // After create: wait for exactly 1 matching row under the prefix filter
     await helpers.applyFilter(SELECTORS.tagPrefixFilter, prefix);
-    const row = await helpers.findRowByPrefix(prefix);
-    await expect(row).toBeVisible();
+    await expect
+      .poll(() => page.locator(SELECTORS.tagTableRows).count(), {
+        timeout: 10000,
+        intervals: [500, 500, 1000, 1000, 2000],
+      })
+      .toBeGreaterThanOrEqual(1);
 
-    // Reset filter to get total count
-    await helpers.resetFilters();
-    const afterCreateCount = await helpers.getRecordCount();
-    expect(afterCreateCount).toBeGreaterThanOrEqual(initialCount + 1);
+    const row = page.locator(`table tbody tr:has-text("${prefix}")`).first();
+    await expect(row).toBeVisible();
 
     // Clean up
     await helpers.deleteTagByPrefix(prefix);
@@ -34,11 +42,22 @@ test.describe('Tag Create, Delete and Persistence Tests', () => {
     const prefix = TestDataGenerator.generateUniqueTagPrefix('DELETE');
     await helpers.createTag(prefix, 'Delete test tag');
 
-    const beforeDeleteCount = await helpers.getRecordCount();
+    // Verify the row exists under the prefix filter before deleting
+    await helpers.applyFilter(SELECTORS.tagPrefixFilter, prefix);
+    await expect
+      .poll(() => page.locator(SELECTORS.tagTableRows).count(), { timeout: 10000 })
+      .toBeGreaterThanOrEqual(1);
+
     await helpers.deleteTagByPrefix(prefix);
 
-    const afterDeleteCount = await helpers.getRecordCount();
-    expect(afterDeleteCount).toBeLessThanOrEqual(beforeDeleteCount - 1);
+    // After delete: prefix-filtered list must return 0 rows
+    await helpers.applyFilter(SELECTORS.tagPrefixFilter, prefix);
+    await expect
+      .poll(() => page.locator(SELECTORS.tagTableRows).count(), {
+        timeout: 10000,
+        intervals: [500, 500, 1000, 1000, 2000],
+      })
+      .toBe(0);
   });
 
   test('TC-12: Verify newly created tag persists after refresh and navigation', async ({ page }) => {
@@ -96,8 +115,6 @@ test.describe('Tag Create, Delete and Persistence Tests', () => {
     const description = TestDataGenerator.generateUniqueTagDescription('Delete Cancel Test');
     await helpers.createTag(prefix, description);
 
-    const initialCount = await helpers.getRecordCount();
-
     // Find the row and click delete
     const row = await helpers.findRowByPrefix(prefix);
     await row.scrollIntoViewIfNeeded();
@@ -115,11 +132,7 @@ test.describe('Tag Create, Delete and Persistence Tests', () => {
     // Verify modal closes
     await expect(page.locator(SELECTORS.deleteModal)).not.toBeVisible();
 
-    // Verify tag still exists
-    await helpers.resetFilters();
-    const afterCancelCount = await helpers.getRecordCount();
-    expect(afterCancelCount).toBe(initialCount);
-
+    // Verify tag still exists under the unique prefix filter
     await helpers.applyFilter(SELECTORS.tagPrefixFilter, prefix);
     await expect(await helpers.findRowByPrefix(prefix)).toBeVisible();
 

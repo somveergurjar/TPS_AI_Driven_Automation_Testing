@@ -17,6 +17,8 @@ allure-results/
 allure-report/
 
 # Artifacts
-*.png
 *.mp4
 *.zip
+
+# Failure screenshots
+failed test cases screenshot/
