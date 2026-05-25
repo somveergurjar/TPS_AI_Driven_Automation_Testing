@@ -1,18 +1,14 @@
-import { test, expect, Page } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
+import { ENV } from '../../config/env';
 
+// TEST_CONFIG is derived from the central config so credentials and URLs
+// are never hardcoded here. Set TEST_EMAIL / TEST_PASSWORD in .env to override.
 export const TEST_CONFIG = {
-  baseUrl: 'https://dev.liveaccess.ai',
-  loginUrl: 'https://dev.liveaccess.ai/login',
-  tagModuleUrl: 'https://dev.liveaccess.ai/tag',
-  credentials: {
-    email: 'somveergurjar.megaminds@gmail.com',
-    password: 'Qwert@123'
-  },
-  timeouts: {
-    navigation: 30000,
-    element: 15000,
-    action: 10000
-  }
+  baseUrl:      ENV.baseUrl,
+  loginUrl:     ENV.loginUrl,
+  tagModuleUrl: ENV.urls.tag,
+  credentials:  ENV.credentials,
+  timeouts:     ENV.timeouts,
 };
 
 export const SELECTORS = {
@@ -66,24 +62,20 @@ export class TagModuleHelpers {
 
     // Wait for navigation to complete - either to tag module or a verification page
     await this.page.waitForLoadState('networkidle', { timeout: TEST_CONFIG.timeouts.navigation });
-    
-    // If we're still on login page after some delay, the login may have failed
-    const isStillOnLogin = this.page.url().includes('/login');
-    if (isStillOnLogin) {
+
+    if (this.page.url().includes('/login')) {
       throw new Error('Login failed - still on login page after credentials submission');
     }
   }
 
   async navigateToTagModule() {
     if (!this.page.url().includes('/tag')) {
-      // Click the Tag button in the sidebar
       const tagButton = this.page.locator('button:has-text("Tag")').first();
       await tagButton.click({ timeout: TEST_CONFIG.timeouts.element });
-      // Wait for page to load
       await this.page.waitForLoadState('domcontentloaded', { timeout: TEST_CONFIG.timeouts.navigation });
-      await this.page.waitForLoadState('networkidle', { timeout: TEST_CONFIG.timeouts.navigation });
+      // networkidle may never fire on a data-heavy SPA — treat timeout as non-fatal
+      await this.page.waitForLoadState('networkidle', { timeout: TEST_CONFIG.timeouts.navigation }).catch(() => {});
     }
-    // Wait for either the page header or the new tag button to appear
     const newTagButton = this.page.locator(SELECTORS.newTagButton);
     await newTagButton.waitFor({ timeout: TEST_CONFIG.timeouts.navigation, state: 'visible' });
   }
@@ -291,7 +283,7 @@ export class TagModuleHelpers {
       }
       
       // Row exists, try to delete it
-      await this.page.once('dialog', async (dialog) => {
+      this.page.once('dialog', async (dialog) => {
         await dialog.accept();
       });
       

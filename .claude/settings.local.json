@@ -9,7 +9,10 @@
       "Bash(node inspect_supplier_dropdown.js)",
       "Bash(HEADLESS=true npx playwright test tests/tag_module/tag-create-delete-persistence.spec.ts --project=chromium)",
       "Bash(HEADLESS=true npx playwright test tests/tag_module --project=chromium)",
-      "Bash(HEADLESS=true npx playwright test tests/tag_module tests/document_module --project=chromium)"
+      "Bash(HEADLESS=true npx playwright test tests/tag_module tests/document_module --project=chromium)",
+      "Bash(HEADLESS=true npx playwright test tests/document_module/document-e2e-happy-path.spec.ts --project=chromium)",
+      "Bash(HEADLESS=true npx playwright test tests/document_module --project=chromium)",
+      "Bash(npx --no playwright test tests/document_module/ tests/tag_module/ --project=chromium --reporter=list)"
     ]
   }
 }

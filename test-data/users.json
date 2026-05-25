@@ -1,0 +1,14 @@
+{
+  "admin": {
+    "email": "${TEST_EMAIL}",
+    "password": "${TEST_PASSWORD}",
+    "role": "Super Admin",
+    "note": "Values resolved at runtime from env vars TEST_EMAIL / TEST_PASSWORD"
+  },
+  "readOnly": {
+    "email": "${READONLY_EMAIL}",
+    "password": "${READONLY_PASSWORD}",
+    "role": "Read Only",
+    "note": "Used for TC_DOC_026 unauthorized-delete test — configure before running"
+  }
+}

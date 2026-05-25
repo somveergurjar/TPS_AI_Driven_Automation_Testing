@@ -326,6 +326,244 @@ Verify that if the user clicks "Choose files" and cancels file selection, no fil
 
 
 
+# 7. end to end flow with happy path test case 
+  Test Scenario: Verify complete End-to-End Happy Path flow for Document Management Module
+
+Test Case ID: TC_E2E_Document_001
+
+Test Title:
+Verify user is able to create, upload, link, save, search, download and delete document successfully
+
+Preconditions:
+- User should be logged into the application
+- User should have access to Document module
+- Valid files should be available for upload
+
+------------------------------------------------------------
+Test Steps:
+------------------------------------------------------------
+
+Step 1:
+Navigate to Document Listing page
+
+Expected Result:
+- Document Listing page should load successfully
+
+------------------------------------------------------------
+
+Step 2:
+Click on "+ New Document" button
+
+Expected Result:
+- New Document screen should open successfully
+- Identification tab should open by default
+
+------------------------------------------------------------
+
+Step 3:
+Verify TPS ID is auto-generated
+
+Expected Result:
+- TPS ID should generate automatically
+- TPS ID format should be like:
+  D00020
+- TPS ID should be unique and incremental
+
+------------------------------------------------------------
+
+Step 4:
+Enter Document Name:
+SG_Document_Name_01
+
+Expected Result:
+- Document Name should accept entered value successfully
+
+------------------------------------------------------------
+
+Step 5:
+Select Document Type from dropdown
+
+Expected Result:
+- Selected Document Type should display successfully
+
+------------------------------------------------------------
+
+Step 6:
+Select Supplier from dropdown
+
+Expected Result:
+- Selected Supplier should display successfully
+
+------------------------------------------------------------
+
+Step 7:
+Enter Supplier Document ID:
+user-man-v2
+
+Expected Result:
+- Supplier Document ID should accept entered value successfully
+
+------------------------------------------------------------
+
+Step 8:
+Enter Remarks with valid test data up to 100 characters
+
+Expected Result:
+- Remarks should accept entered value successfully
+
+------------------------------------------------------------
+
+Step 9:
+Navigate to Revisions tab
+
+Expected Result:
+- Revisions tab should open successfully
+
+------------------------------------------------------------
+
+Step 10:
+Click on "Choose Files"
+Select valid file(s)
+
+Expected Result:
+- Selected files should appear successfully
+
+------------------------------------------------------------
+
+Step 11:
+Click on "Upload Revision" button
+
+Expected Result:
+- Files should upload successfully
+- Uploaded files should appear in revision listing
+- Revision details should display properly
+
+------------------------------------------------------------
+
+Step 12:
+Upload multiple files
+
+Expected Result:
+- Multiple file upload should work successfully
+- All uploaded files should appear in listing
+
+------------------------------------------------------------
+
+Step 13:
+Navigate to Equipment Linking tab
+
+Expected Result:
+- Equipment Linking tab should open successfully
+
+------------------------------------------------------------
+
+Step 14:
+Select any available equipment
+
+Expected Result:
+- Selected equipment should move to Linked Equipment section
+
+------------------------------------------------------------
+
+Step 15:
+Navigate to Spare Parts Linking tab
+
+Expected Result:
+- Spare Parts Linking tab should open successfully
+
+------------------------------------------------------------
+
+Step 16:
+Select any available spare part
+
+Expected Result:
+- Selected spare part should move to Linked Spare Part section
+
+------------------------------------------------------------
+
+Step 17:
+Click on "Save Document" button
+
+Expected Result:
+- Document should save successfully
+- Success toaster message should display:
+  "Document saved successfully"
+
+------------------------------------------------------------
+
+Step 18:
+Navigate back to Document Listing page
+
+Expected Result:
+- User should redirect successfully to listing page
+
+------------------------------------------------------------
+
+Step 19:
+Search document using TPS ID
+
+Expected Result:
+- Newly added document should appear successfully
+
+------------------------------------------------------------
+
+Step 20:
+Search document using Document Name
+
+Expected Result:
+- Newly added document should appear successfully
+
+------------------------------------------------------------
+
+Step 21:
+Verify Download and Delete buttons are visible in Action column
+
+Expected Result:
+- Download button should be visible
+- Delete button should be visible
+
+------------------------------------------------------------
+
+Step 22:
+Click on Download button
+
+Expected Result:
+- Document file should download successfully
+
+------------------------------------------------------------
+
+Step 23:
+Click on Delete button
+
+Expected Result:
+- Delete confirmation popup should appear
+
+------------------------------------------------------------
+
+Step 24:
+Click on Delete button from confirmation popup
+
+Expected Result:
+- Document should delete successfully
+- Success message should display
+- Deleted document should no longer appear in listing
+
+------------------------------------------------------------
+
+Final Expected Result:
+------------------------------------------------------------
+
+- User should be able to complete full end-to-end document flow successfully
+- Document creation should work properly
+- Revision upload should work properly
+- Equipment and spare part linking should work properly
+- Document save should work properly
+- Search functionality should work properly
+- Download functionality should work properly
+- Delete functionality should work properly
+
+
+
 
 Tooltip/accessibility labels should work properly
 

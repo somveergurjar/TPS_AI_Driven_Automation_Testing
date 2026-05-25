@@ -117,9 +117,12 @@ test.describe('Document Module - Grid and Pagination', () => {
   test('1.32. Scrolling Through Large Dataset', async ({ page }) => {
     await helper.waitForDocumentGrid();
 
-    const rowCount = await helper.getVisibleRowCount();
+    // The grid uses virtual rendering — only a window of rows exist in the DOM
+    // at any time, so visible row count is always low regardless of total records.
+    // We only need at least 1 visible row to validate scrolling behaviour.
+    const visibleRows = await helper.getVisibleRowCount();
 
-    if (rowCount > 10) { // Only test if we have a reasonably large dataset
+    if (visibleRows > 0) {
       // Perform multiple scroll operations
       for (let i = 0; i < 3; i++) {
         await helper.scrollToBottom();
@@ -136,8 +139,7 @@ test.describe('Document Module - Grid and Pagination', () => {
       const table = page.locator(SELECTORS.documentTable);
       await expect(table).toBeVisible();
     } else {
-      // Skip test if dataset is too small
-      test.skip();
+      test.skip(true, 'No documents in the grid — skipping scroll test');
     }
   });
 });

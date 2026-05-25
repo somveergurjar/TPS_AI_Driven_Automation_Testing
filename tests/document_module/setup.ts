@@ -1,18 +1,15 @@
-import { test, expect, Page } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
+import path from 'path';
+import { ENV } from '../../config/env';
 
+// TEST_CONFIG is derived from the central config so credentials and URLs
+// are never hardcoded here. Set TEST_EMAIL / TEST_PASSWORD in .env to override.
 export const TEST_CONFIG = {
-  baseUrl: 'https://dev.liveaccess.ai',
-  loginUrl: 'https://dev.liveaccess.ai/login',
-  documentModuleUrl: 'https://dev.liveaccess.ai/document',
-  credentials: {
-    email: 'somveergurjar.megaminds@gmail.com',
-    password: 'Qwert@123'
-  },
-  timeouts: {
-    navigation: 30000,
-    element: 15000,
-    action: 10000
-  }
+  baseUrl:           ENV.baseUrl,
+  loginUrl:          ENV.loginUrl,
+  documentModuleUrl: ENV.urls.document,
+  credentials:       ENV.credentials,
+  timeouts:          ENV.timeouts,
 };
 
 export const SELECTORS = {
@@ -78,22 +75,14 @@ export class DocumentModuleHelpers {
     await this.page.fill(SELECTORS.passwordInput, TEST_CONFIG.credentials.password);
     await this.page.click(SELECTORS.loginButton);
 
-    // Wait for navigation to complete with a longer timeout
-    try {
-      await this.page.waitForNavigation({ timeout: TEST_CONFIG.timeouts.navigation });
-    } catch (e) {
-      console.log('Navigation did not occur after login, continuing anyway');
-    }
+    // Wait for the login redirect to complete — URL leaves /login
+    await this.page.waitForURL(url => !url.href.includes('/login'), {
+      timeout: TEST_CONFIG.timeouts.navigation,
+      waitUntil: 'domcontentloaded',
+    }).catch(() => {});
 
-    // Wait for page to load
+    // Ensure the landing page DOM is fully loaded
     await this.page.waitForLoadState('domcontentloaded', { timeout: TEST_CONFIG.timeouts.navigation });
-
-    // If we're still on login page, wait a bit more
-    const isStillOnLogin = this.page.url().includes('/login');
-    if (isStillOnLogin) {
-      console.log('Still on login page, waiting additional time...');
-      await this.page.waitForTimeout(3000);
-    }
   }
 
   async navigateToDocumentModule() {
@@ -271,6 +260,113 @@ export class DocumentModuleHelpers {
       window.scrollTo(0, 0);
     });
     await this.page.waitForTimeout(500);
+  }
+
+  /**
+   * Creates a minimal but complete document (name + type + supplier + one revision)
+   * and navigates back to the document list when done.
+   * Intended for tests that need their own test data to avoid touching shared records.
+   */
+  async createDocumentForTest(docName: string): Promise<void> {
+    await this.navigateToNewDocument();
+
+    // Fill Document Name — try known attribute selectors, then label-adjacent fallback
+    let nameFilled = false;
+    for (const sel of [
+      'input[name="documentName"]',
+      'input[id*="documentName"]',
+      'input[placeholder*="Document Name" i]',
+    ]) {
+      const el = this.page.locator(sel).first();
+      if ((await el.count()) > 0 && (await el.isEnabled())) {
+        await el.fill(docName);
+        nameFilled = true;
+        break;
+      }
+    }
+    if (!nameFilled) {
+      // The Document Name input has no distinguishing attributes in this app —
+      // pick the first editable input that is not a known dropdown trigger.
+      const fallback = this.page.locator(
+        'input:not([disabled]):not([readonly])' +
+        ':not([placeholder="SELECT OR TYPE TO ADD NEW..."])' +
+        ':not([placeholder="TYPE TO SEARCH OR ADD NEW..."])',
+      ).first();
+      if ((await fallback.count()) > 0) await fallback.fill(docName);
+    }
+
+    // Select Document Type — open dropdown, pick first option
+    const docTypeInput = this.page.locator('input[placeholder="SELECT OR TYPE TO ADD NEW..."]').first();
+    if ((await docTypeInput.count()) > 0) {
+      await docTypeInput.click();
+      const firstOption = this.page.locator('div.absolute.z-50 > div:first-child').first();
+      await firstOption.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+      if ((await firstOption.count()) > 0) await firstOption.click();
+    }
+
+    // Select Supplier — open dropdown, pick first option
+    const supplierInput = this.page.locator('input[placeholder="TYPE TO SEARCH OR ADD NEW..."]').first();
+    if ((await supplierInput.count()) > 0) {
+      await supplierInput.click();
+      const firstOption = this.page.locator('div.absolute.z-50 > div:first-child').first();
+      await firstOption.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+      if ((await firstOption.count()) > 0) await firstOption.click();
+    }
+
+    // Navigate to Revisions tab
+    const revisionsTab = this.page.locator('main button:has-text("Revisions")').first();
+    if ((await revisionsTab.count()) > 0) {
+      await revisionsTab.click();
+      await this.page.locator('input[type="file"]').waitFor({ state: 'attached', timeout: 5000 }).catch(() => {});
+    }
+
+    // Upload one revision file
+    const fixturePdf = path.resolve(__dirname, '../fixtures/calibration-certificate-rev1.pdf');
+    const fileInput = this.page.locator('input[type="file"]').first();
+    if ((await fileInput.count()) > 0) {
+      await fileInput.setInputFiles(fixturePdf);
+      const uploadBtn = this.page.locator('button:has-text("Upload Revision")').first();
+      await uploadBtn.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+      if ((await uploadBtn.count()) > 0 && (await uploadBtn.isEnabled())) {
+        await uploadBtn.click();
+        // Wait for at least one revision row to appear
+        await expect
+          .poll(() => this.page.locator('table tbody tr').count(), { timeout: 8000 })
+          .toBeGreaterThanOrEqual(1);
+      }
+    }
+
+    // Save
+    const saveBtn = this.page.locator('button:has-text("Save Document")').first();
+    await saveBtn.click();
+    await this.page.locator(SELECTORS.toastSuccess).waitFor({ state: 'visible', timeout: 15000 });
+
+    // Return to document list
+    await this.navigateToDocumentModule();
+    await this.waitForDocumentGrid();
+  }
+
+  /**
+   * Filters by document name and deletes the matching record.
+   * Silently no-ops if the document is not found — safe to call in finally/afterEach.
+   */
+  async deleteDocumentByName(docName: string): Promise<void> {
+    try {
+      await this.navigateToDocumentModule();
+      await this.waitForDocumentGrid();
+      await this.applyFilter(SELECTORS.documentNameFilter, docName);
+
+      const row = this.page.locator(`table tbody tr:has-text("${docName}")`).first();
+      await row.waitFor({ state: 'visible', timeout: 5000 });
+
+      const deleteBtn = row.locator(SELECTORS.deleteActionIcon).first();
+      await deleteBtn.click();
+      await this.page.waitForSelector(SELECTORS.deleteModal, { timeout: TEST_CONFIG.timeouts.element });
+      await this.page.locator(SELECTORS.deleteModalConfirm).click();
+      await this.page.locator(SELECTORS.toastSuccess).waitFor({ state: 'visible', timeout: TEST_CONFIG.timeouts.action });
+    } catch {
+      // Document not found or already deleted — best-effort cleanup, do not throw
+    }
   }
 }
 

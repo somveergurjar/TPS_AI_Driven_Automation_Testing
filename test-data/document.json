@@ -1,45 +1,39 @@
 [
   {
-    "id": "DOC_TC_001",
-    "description": "All mandatory fields empty",
+    "id": "TC_DOC_VALID_001",
+    "description": "All mandatory fields filled — document should save successfully",
     "input": {
-      "documentName": "",
-      "documentType": "",
-      "supplier": ""
+      "documentName": "Test Document Valid",
+      "supplierDocId": "DOC-CERT-001",
+      "remarks": "Automated test — valid data"
     },
-    "expectError": true,
-    "errorField": "all"
+    "expectError": false
   },
   {
-    "id": "DOC_TC_002",
-    "description": "Only document name missing",
-    "input": {
-      "documentName": "",
-      "documentType": "CERTIFICATE",
-      "supplier": "IFM Electronic"
-    },
+    "id": "TC_DOC_EMPTY_001",
+    "description": "All mandatory fields blank — three validation errors expected",
+    "input": { "documentName": "" },
     "expectError": true,
-    "errorField": "documentName"
+    "errorFields": ["documentName", "documentType", "supplier"]
   },
   {
-    "id": "DOC_TC_003",
-    "description": "Spaces only in document name",
-    "input": {
-      "documentName": "     ",
-      "documentType": "CERTIFICATE",
-      "supplier": "IFM Electronic"
-    },
+    "id": "TC_DOC_EMPTY_NAME",
+    "description": "Document Name blank — only name error expected",
+    "input": { "documentName": "" },
     "expectError": true,
-    "errorField": "documentName"
+    "errorFields": ["documentName"]
   },
   {
-    "id": "DOC_TC_004",
-    "description": "Valid document - all mandatory fields filled",
-    "input": {
-      "documentName": "Valid Calibration Certificate",
-      "documentType": "CERTIFICATE",
-      "supplier": "IFM Electronic"
-    },
+    "id": "TC_DOC_SPACES_NAME",
+    "description": "Document Name contains only spaces — treated as empty",
+    "input": { "documentName": "   " },
+    "expectError": true,
+    "errorFields": ["documentName"]
+  },
+  {
+    "id": "TC_DOC_SPECIAL_CHARS",
+    "description": "Special characters in Document Name — should be accepted",
+    "input": { "documentName": "Doc !@#$%^&*()_+-=" },
     "expectError": false
   }
 ]
