@@ -11,6 +11,7 @@ const retries    = isCI ? 2 : parseInt(process.env.RETRIES ?? '0');
 
 export default defineConfig({
   testDir: './tests',
+  globalTeardown: './global-teardown.ts',
 
   /* ── Execution ──────────────────────────────────────────────────────────── */
   fullyParallel: true,

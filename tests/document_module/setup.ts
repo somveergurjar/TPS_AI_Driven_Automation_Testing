@@ -321,7 +321,7 @@ export class DocumentModuleHelpers {
     }
 
     // Upload one revision file
-    const fixturePdf = path.resolve(__dirname, '../fixtures/calibration-certificate-rev1.pdf');
+    const fixturePdf = path.resolve(__dirname, '../../test-data/calibration-certificate-rev1.pdf');
     const fileInput = this.page.locator('input[type="file"]').first();
     if ((await fileInput.count()) > 0) {
       await fileInput.setInputFiles(fixturePdf);

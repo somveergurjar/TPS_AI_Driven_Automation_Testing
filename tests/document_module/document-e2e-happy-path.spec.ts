@@ -5,7 +5,7 @@ import { test, expect } from '@playwright/test';
 import path from 'path';
 import { DocumentModuleHelpers, SELECTORS, TEST_CONFIG } from './setup';
 
-const FIXTURE_PDF = path.resolve(__dirname, '../fixtures/calibration-certificate-rev1.pdf');
+const FIXTURE_PDF = path.resolve(__dirname, '../../test-data/calibration-certificate-rev1.pdf');
 
 // ---------------------------------------------------------------------------
 // Selectors specific to this E2E flow

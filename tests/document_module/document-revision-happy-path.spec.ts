@@ -40,7 +40,7 @@ const REV_SELECTORS = {
 };
 
 // Path to the fixture PDF used for upload
-const FIXTURE_PDF = path.resolve(__dirname, '../fixtures/calibration-certificate-rev1.pdf');
+const FIXTURE_PDF = path.resolve(__dirname, '../../test-data/calibration-certificate-rev1.pdf');
 
 // ---------------------------------------------------------------------------
 // Helper: fill all Identification tab mandatory fields so Save is unblocked

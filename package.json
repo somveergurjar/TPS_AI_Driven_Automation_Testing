@@ -7,7 +7,12 @@
     "test": "npx playwright test --project=chromium",
     "test:chromium": "npx playwright test --project=chromium",
     "test:firefox": "npx playwright test --project=firefox",
-    "test:webkit": "npx playwright test --project=webkit"
+    "test:webkit": "npx playwright test --project=webkit",
+    "test:all": "npx playwright test",
+    "test:headless": "npx playwright test --project=chromium",
+    "test:headless:report": "npx playwright test --project=chromium & npx allure generate --clean --output allure-report allure-results & npx allure open allure-report",
+    "report": "npx allure generate --clean --output allure-report allure-results && npx allure open allure-report",
+    "report:open": "npx allure open allure-report"
   },
   "keywords": [],
   "author": "",
@@ -15,7 +20,7 @@
   "type": "commonjs",
   "devDependencies": {
     "@playwright/test": "^1.59.1",
-    "@types/node": "^25.6.0",
+    "@types/node": "^25.9.1",
     "allure-playwright": "^3.9.0",
     "dotenv": "^17.4.2"
   }

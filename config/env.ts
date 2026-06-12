@@ -26,9 +26,10 @@ export const ENV = {
   },
 
   urls: {
-    document:  `${base}/document`,
-    tag:       `${base}/tag`,
-    equipment: `${base}/equipment`,
-    dashboard: `${base}/dashboard`,
+    document:     `${base}/document`,
+    tag:          `${base}/tag`,
+    equipment:    `${base}/equipment`,
+    dashboard:    `${base}/dashboard`,
+    globalSearch: `${base}/global-search`,
   },
 } as const;

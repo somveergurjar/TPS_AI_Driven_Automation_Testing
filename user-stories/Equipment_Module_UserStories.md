@@ -1,0 +1,513 @@
+Equipment Module
+│
+├── 01_Equipment_List
+├── 02_Create_Equipment
+├── 03_Edit_Equipment
+├── 04_Delete_Equipment
+├── 05_Equipment_Identification_Tab
+├── 06_Performance_Tab
+├── 07_Mechanical_Tab
+├── 08_Automation_Control_Tab
+├── 09_Electrical_Protection_Tab
+├── 10_Motor_Data_Tab
+├── 11_Rotating_Equipment_Tab
+├── 12_Gearbox_Data_Tab
+├── 13_Commercial_Tab
+├── 14_Spare_Parts_Linking
+├── 15_Documents_Linking
+├── 16_Search_And_Filter
+├── 17_Column_Management
+├── 18_Export_CSV
+├── 19_Bulk_Upload
+├── 20_Role_And_Permission
+├── 21_Validation_Testing
+├── 22_UI_UX_Testing
+└── 23_End_To_End_Flow
+Standard Test Case Format (Very Important)
+
+Use this exact structure.
+
+Test Case ID
+Module Name
+Feature Name
+Priority
+Precondition
+Test Steps
+Expected Result
+Test Type
+Automation Status
+Tags
+Best AI-Friendly Test Case Template
+TC_EQ_CREATE_001
+
+Module: Equipment
+Feature: Create Equipment
+
+Priority: High
+
+Precondition:
+- User logged in
+- User has create permission
+
+Test Steps:
+1. Navigate to Equipment module
+2. Click on New Equipment
+3. Fill mandatory fields
+4. Click Save Equipment
+
+Expected Result:
+- Equipment should save successfully
+- Success message should appear
+- Record should appear in Equipment List
+
+Test Type:
+Functional
+
+Automation:
+Yes
+
+Tags:
+Smoke, Regression, CRUD
+MAIN TEST CASE CATEGORIES
+1. Equipment List Module
+Cover:
+List loading
+Grid validation
+Record count
+Pagination
+Scroll
+Sorting
+Empty state
+Naming Convention
+TC_EQ_LIST_001
+TC_EQ_LIST_002
+TC_EQ_LIST_003
+2. Create Equipment
+Subcategories
+Positive Scenarios
+Negative Scenarios
+Mandatory Validation
+Boundary Validation
+Dropdown Validation
+Data Persistence
+Save Flow
+Example Structure
+TC_EQ_CREATE_001 → Create equipment with valid data
+TC_EQ_CREATE_002 → Verify mandatory validation
+TC_EQ_CREATE_003 → Verify duplicate supplier ID validation
+TC_EQ_CREATE_004 → Verify max character validation
+TC_EQ_CREATE_005 → Verify save button state
+3. Tab-wise Structure (MOST IMPORTANT)
+
+Your module has many tabs.
+
+Each tab should contain:
+
+Field Validation
+Dropdown Validation
+Save Validation
+Navigation Validation
+Data Persistence
+UI Validation
+Business Rules
+Example → Equipment Identification Tab
+05_Equipment_Identification_Tab
+│
+├── Mandatory Fields
+├── Dropdown Validation
+├── TPS ID Validation
+├── Supplier Validation
+├── Manufacturer Validation
+├── Data Persistence
+├── Save Flow
+└── UI Validation
+Example Test Cases
+TC_EQ_IDENT_001 → Verify TPS ID auto generation
+TC_EQ_IDENT_002 → Verify Manufacturer mandatory validation
+TC_EQ_IDENT_003 → Verify Supplier mandatory validation
+TC_EQ_IDENT_004 → Verify duplicate Supplier ID validation
+TC_EQ_IDENT_005 → Verify dropdown search functionality
+4. Navigation Testing Structure
+
+Very important for multi-tabs.
+
+TC_EQ_NAV_001 → Verify tab navigation
+TC_EQ_NAV_002 → Verify active tab highlight
+TC_EQ_NAV_003 → Verify unsaved data persistence
+TC_EQ_NAV_004 → Verify warning on page leave
+5. Validation Testing Structure
+
+AI agents generate excellent test cases from this section.
+
+Cover:
+Required Validation
+Character Validation
+Length Validation
+Numeric Validation
+Special Character Validation
+Duplicate Validation
+Date Validation
+Trim Space Validation
+6. Linking Modules Structure
+Spare Parts Linking
+TC_EQ_SPLINK_001 → Link spare part
+TC_EQ_SPLINK_002 → Remove linked spare part
+TC_EQ_SPLINK_003 → Prevent duplicate linking
+Documents Linking
+TC_EQ_DOC_001 → Upload document
+TC_EQ_DOC_002 → Link existing document
+TC_EQ_DOC_003 → Invalid file validation
+TC_EQ_DOC_004 → Download document
+7. Search & Filter Structure
+TC_EQ_FILTER_001 → Filter by TPS ID
+TC_EQ_FILTER_002 → Filter by Category
+TC_EQ_FILTER_003 → Multi-filter validation
+TC_EQ_FILTER_004 → Reset filter validation
+8. Role & Permission Testing
+
+Very important in enterprise apps.
+
+TC_EQ_ROLE_001 → Super Admin create permission
+TC_EQ_ROLE_002 → Client Admin edit restriction
+TC_EQ_ROLE_003 → Read-only user validation
+
+9. End-to-End Scenarios
+
+This is your biggest automation value.
+
+Example
+TC_EQ_E2E_001
+
+Create Equipment
+→ Fill all tabs
+→ Link Spare Parts
+→ Link Documents
+→ Save
+→ Search created equipment
+→ Edit equipment
+→ Delete equipment
+
+
+
+
+# User story 
+
+User story : 
+When an authorized user clicks + NEW EQUIPMENT, the system shall open a new page to create an equipment record.
+The creation process shall follow a structured multi-step flow:
+IDENTIFICATION
+PROCESS
+AUTOMATION
+COMMERCIAL
+
+
+The user must complete all mandatory fields in the IDENTIFICATION step before proceeding to the next steps.
+TPS ID shall be auto-generated by the system.
+
+ Acceptance Criteria : 
+
+Navigation & Page Load
+When user clicks NEW EQUIPMENT:
+System must open a new page titled: NEW EQUIPMENT RECORD
+Tabs must be displayed at top:
+IDENTIFICATION
+PROCESS
+AUTOMATION
+COMMERCIAL
+
+
+The IDENTIFICATION tab must be active by default.
+
+1. IDENTIFICATION TAB – Field Requirements
+TPS ID must be auto-generated by the system.
+Field must be:
+Read-only
+Unique
+Generated sequentially (e.g., E000013)
+
+
+User must not be able to edit TPS ID.
+
+Mandatory Fields
+Below fields must be mandatory (* marked):
+EQUIPMENT NAME (FULL NAME) *
+TAG PREFIX (AUTO-TAG) *
+SUPPLIER *
+SUPPLIER IDENTIFICATION NO. * (Unique Primary Key)
+
+
+If user attempts to navigate to PROCESS tab without filling mandatory fields:
+The system must display a validation message: "Please complete all mandatory fields before proceeding."
+Field-level validation message: "This field is required."
+
+Status Dropdown
+STATUS dropdown must contain:
+ACTIVE
+OBSOLETE
+Default value: ACTIVE
+
+
+
+Supplier Dropdown : 
+SUPPLIER dropdown must contain:
+ALFA LAVAL
+SAMSON
+BURKERT
+
+
+(Values must appear in CAPITAL LETTERS if UI standard requires.)
+Manufacturer Dropdown : 
+MANUFACTURER dropdown must contain values such as:
+NGI
+IFM
+FESTO
+GEA
+WIKA
+
+
+Dropdown values must be configurable from master data.
+Equipment Type Dropdown : 
+EQUIPMENT TYPE dropdown must contain:
+PUMP
+SENSOR
+MOTOR
+VALVE
+TRANSMITTER
+Discipline Dropdown
+DISCIPLINE dropdown must contain:
+PROCESS
+ELECTRICAL
+AUTOMATION
+MECHANICAL
+
+
+Category Dropdown
+CATEGORY dropdown must contain:
+PUMPS
+TANKS
+FLOW MEASUREMENT
+CONTROL VALVES
+INSTRUMENTS
+Unique Primary Key Validation
+SUPPLIER IDENTIFICATION NO. must be unique.
+If duplicate value exists:
+System must display: "Supplier Identification Number already exists."
+User must not be allowed to save records.
+
+Discipline Dropdown 
+User must not proceed to:
+PROCESS
+AUTOMATION
+COMMERCIAL
+It is optional field 
+Save Equipment Button
+SAVE EQUIPMENT button must:
+Validate all mandatory fields
+Validate unique constraints
+Save complete record
+
+
+Display success message: "Equipment created successfully."
+After successful save: System must generate permanent TPS ID
+
+Cancel Button
+CANCEL must:
+Discard unsaved changes
+Redirect back to Equipment List page
+If unsaved changes exist: System must show confirmation dialog:
+ "Are you sure you want to discard changes?"
+
+
+2.Process Tab (Next Step After Identification) : 
+User Story:
+ As a user, I want to enter optional process and mechanical details for the equipment in the Process tab, so that additional technical specifications can be recorded without making any field mandatory.
+Acceptance Criteria:
+Users can navigate to the Process tab after Identification.
+All fields in the Process tab are optional.
+Users can save the equipment record without filling any Process fields.
+Entered data should be saved correctly when provided.
+No validation error should appear if fields are left blank.
+1. Size / Capacity
+Specifies the physical size or operational capacity of the equipment.
+2. Connection
+Defines the type of mechanical or piping connection used.
+3. Operating Min
+Indicates the minimum operating limit of the equipment.
+4. Operating Max
+Indicates the maximum operating limit of the equipment.
+5. Design Pressure (Bar)
+Specifies the maximum pressure the equipment is designed to withstand (in bar).
+6. Design Temp (°C)
+Specifies the maximum temperature the equipment is designed to handle (in °C).
+7. Fail Position
+Defines the default position of the equipment during failure conditions.
+8. Component Type
+Specifies the category or type of equipment component.
+9. Material (Wetted)
+Indicates the material that comes in direct contact with the process fluid.
+10. Surface Finish RA (mm)
+Specifies the surface roughness value in millimeters.
+11. Pressure Class (PN)
+Defines the nominal pressure rating classification of the equipment.
+12. Weight (KG)
+Specifies the total weight of the equipment in kilograms.
+13. Dimensions (L×W×H)
+Defines the physical dimensions of the equipment (Length × Width × Height).
+14. Service / Application
+Describes the intended use or service application of the equipment.
+15. Fluid
+Specifies the type of fluid the equipment will handle.
+
+
+
+3.Automation Tab(Next Step After Process) : 
+
+User Story:
+As a user, I want to enter optional automation and electrical details for the equipment in the Automation tab, so that technical electrical specifications can be recorded without making any field mandatory.
+Acceptance Criteria:
+1.User can navigate to the Automation tab after Process.
+2.All fields in the Automation tab are optional.
+3.User can save the equipment record without filling any Automation fields.
+4.Entered data should be saved correctly when provided.
+5.Toggle switches (AS-i, IO-Link, Profinet, Motor Starter) should save their ON/OFF   status.
+6.No validation error should appear if fields are left blank.
+
+1. Signal Type
+Specifies the type of control signal used (e.g., analog, digital).
+2. Control Power (VDC)
+Defines the DC control power supply voltage.
+3. DI (Count)
+Specifies the number of Digital Input signals.
+4. DO (Count)
+Specifies the number of Digital Output signals.
+5. AI (Count)
+Specifies the number of Analog Input signals.
+6. AO (Count)
+Specifies the number of Analog Output signals.
+Toggle Options
+7. AS-i
+Indicates whether AS-Interface communication protocol is supported.
+8. IO-Link
+Indicates whether IO-Link communication protocol is supported.
+9. Profinet
+Indicates whether Profinet communication protocol is supported.
+10. Motor Starter
+Indicates whether a motor starter is included in the system.
+Electrical Specifications
+11. Voltage (V)
+Specifies the operating voltage value.
+12. AC Voltage
+Defines the alternating current voltage rating.
+13. Frequency (Hz)
+Specifies the operating frequency in Hertz.
+14. Current (A)
+Specifies the operating current in Amperes.
+15. Installed Power (kW)
+Indicates the total installed power capacity in kilowatts.
+16. Motor Power
+Specifies the rated motor power.
+17. Energy Efficiency Class
+Defines the energy efficiency rating classification
+4.Commercial & Logistics Tab(After Automation Process): 
+ User Story:
+As a user, I want to enter optional commercial and logistics details for the equipment in the Commercial tab, so that pricing and trade-related information can be recorded before saving the equipment record.
+
+Acceptance Criteria:
+1.User can navigate to the Commercial tab after Automation.
+2.All fields in this tab are optional.
+3.User can leave fields blank and still save the equipment.
+4.Entered data should persist after clicking Save Equipment.
+5.No validation error should appear for empty fields.
+1. HS Code
+Specifies the Harmonized System code used for customs and international trade classification.
+2. Country of Origin
+Indicates the country where the equipment is manufactured.
+3. List Price (EUR)
+Defines the standard selling price of the equipment in Euros.
+
+
+
+
+
+
+
+
+5.Spare Parts Linking : 
+User Story:
+As a user, I want to link available spare parts to a specific equipment from the Spare Parts Linking tab, so that the selected spare parts are associated with that equipment and can be managed later.
+
+Acceptance Criteria
+The system should provide a "Spare Parts Linking" tab in the New Equipment Record screen.
+
+
+The tab should display two sections:
+
+
+Available Spare Parts
+Linked Spare Parts
+
+
+Available Spare Parts Section
+
+
+The system should display a list of all available spare parts.
+The user should be able to search spare parts using the search bar.
+The system should display matching spare parts based on the search input.
+If no result is found, the system should display "No spare parts found".
+
+
+Linking Spare Parts
+
+
+The user should be able to deselect spare parts from the Available Spare Parts list.
+The selected spare parts should appear in the Linked Spare Parts section.
+
+
+Linked Spare Parts Section
+
+
+The system should display all spare parts linked to the equipment.
+The user should be able to search within the linked spare parts list.
+If no result is found, the system should display "No spare parts found".
+
+
+Save Linked Spare Parts
+
+
+When the user clicks Save Equipment, the selected spare parts should be linked to the specific equipment record.
+User able to see the selected counts of linked spare part and total available spare parts at the right top corner.
+
+
+Edit Linked Spare Parts
+
+
+The user should be able to edit and view the linked spare parts for the equipment by adding or removing spare parts.
+
+6.Documents Linking : 
+
+
+User Story:
+ As a user, I want to link available documents to a specific equipment from the Documents Linking tab, so that the selected documents are associated with that equipment and can be managed later.
+Acceptance Criteria: 
+Documents Linking Tab
+The system should provide a "Documents Linking" tab in the New Equipment Record screen.
+The tab should display two sections:
+Available Documents
+Linked Documents
+Available Documents Section
+The system should display a list of all available documents.
+The user should be able to search documents using the search bar.
+The system should display matching documents based on the search input.
+If no result is found, the system should display "No documents found".
+Linking Documents
+The user should be able to select documents from the Available Documents list.
+The selected documents should appear in the Linked Documents section.
+Linked Documents Section
+The system should display all documents linked to the equipment.
+The user should be able to search within the linked documents list.
+If no result is found, the system should display "No documents found".
+Save Linked Documents
+When the user clicks Save Equipment, the selected documents should be linked to the specific equipment record.
+The user should be able to see the count of linked documents and total available documents at the right top corner.
+Edit Linked Documents
+The user should be able to edit and view the linked documents for the equipment by adding or removing documents.

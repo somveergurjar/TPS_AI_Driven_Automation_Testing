@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import type {
   Reporter,
   TestCase,
@@ -5,6 +6,7 @@ import type {
 } from '@playwright/test/reporter';
 import * as fs   from 'fs';
 import * as path from 'path';
+import process from 'process';
 
 const DEST_DIR      = path.resolve(process.cwd(), 'failed test cases screenshot');
 const TEST_RESULTS  = path.resolve(process.cwd(), 'test-results');
