@@ -13,7 +13,7 @@ export default async function globalTeardown() {
 
   try {
     console.log('\n[Allure] Generating HTML report...');
-    execSync(`npx allure generate --output "${reportDir}" --open "${resultsDir}"`, {
+    execSync(`npx allure generate "${resultsDir}" --output "${reportDir}"`, {
       stdio: 'inherit',
       cwd: __dirname,
     });

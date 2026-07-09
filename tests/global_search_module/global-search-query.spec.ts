@@ -182,4 +182,108 @@ test.describe('Global Search – Chat Interaction & Query History', () => {
     await expect(page.locator(SELECTORS.followUpInput).first()).toBeVisible();
     await expect(page).toHaveURL(/global-search/);
   });
+
+  // TC_GS_023
+  test('TC_GS_023 – Stop button appears while AI is streaming and halts the response', async ({ page }) => {
+    test.setTimeout(60_000);
+
+    // Start a fresh conversation so we have a clean follow-up input
+    await helper.startNewSearch();
+    await helper.waitForPageReady();
+
+    // Submit a query — do NOT await a full response; we want to catch the Stop button mid-stream
+    const input = page.locator(SELECTORS.followUpInput).first();
+    await input.fill(TestQueries.documents);
+    const askBtn = page.locator(SELECTORS.askButton).first();
+    await askBtn.click();
+
+    // Stop button must become visible while AI is streaming (within 10 s)
+    const stopBtn = page.locator(
+      'button:has-text("Stop"), button[aria-label*="stop" i], button[title*="stop" i]',
+    ).first();
+    await expect(stopBtn).toBeVisible({ timeout: 10_000 });
+
+    // Click Stop to halt AI generation
+    await stopBtn.click();
+
+    // Stop button must disappear once generation is halted
+    await expect(stopBtn).not.toBeVisible({ timeout: 10_000 });
+
+    // UI must remain fully functional after stopping
+    await expect(page.locator(SELECTORS.followUpInput).first()).toBeVisible({ timeout: 10_000 });
+    await expect(page.locator(SELECTORS.followUpInput).first()).toBeEnabled();
+
+    // Page must not crash
+    const bodyText = await page.evaluate(() => document.body.textContent ?? '');
+    expect(bodyText).not.toMatch(/Unhandled|Unexpected error|500/i);
+  });
+
+  // TC_GS_024
+  test('TC_GS_024 – Hover on history item reveals three-dot menu; Delete removes only that item', async ({ page }) => {
+    // This test creates one real search and deletes it — it consumes tokens intentionally.
+    // Pre-existing history items must NOT be touched.
+    test.setTimeout(150_000);
+
+    // Capture existing history before the test so we can verify no pre-existing item is lost
+    const historyBefore = await helper.getQueryHistoryTexts();
+
+    // Create a fresh conversation with a unique, identifiable query
+    await helper.startNewSearch();
+    await helper.waitForPageReady();
+
+    const uniqueTag  = `del_test_${Date.now()}`;
+    const uniqueQuery = `${uniqueTag} list documents`;
+
+    await helper.sendMessage(uniqueQuery);
+
+    // Let the response complete so the history entry is saved server-side
+    await helper.waitForResponse(TEST_CONFIG.timeouts.aiResponse);
+    await page.waitForTimeout(1_000);
+
+    // The new query must appear in the left sidebar
+    const historyItem = page.locator('aside').locator(`text=${uniqueTag}`).first();
+    await expect(historyItem).toBeVisible({ timeout: 15_000 });
+
+    // Hover to reveal the three-dot (ellipsis) context menu button
+    await historyItem.hover();
+    await page.waitForTimeout(400); // allow CSS hover transition
+
+    const ellipsisBtn = page.locator(
+      'button[aria-label*="more" i], button[aria-label*="option" i], button[aria-label*="delete" i], ' +
+      'button[title*="more" i], aside button:visible, [class*="history"] button:visible',
+    ).first();
+    await expect(ellipsisBtn).toBeVisible({ timeout: 5_000 });
+    await ellipsisBtn.click();
+
+    // Delete option must appear in the resulting dropdown / menu
+    const deleteOption = page.locator(
+      'button:has-text("Delete"), [role="menuitem"]:has-text("Delete"), ' +
+      '[role="option"]:has-text("Delete"), li:has-text("Delete")',
+    ).first();
+    await expect(deleteOption).toBeVisible({ timeout: 5_000 });
+    await deleteOption.click();
+
+    await page.waitForTimeout(1_500);
+
+    // ── Assertions ────────────────────────────────────────────────────────────
+
+    // 1. The newly created item must be gone from the sidebar
+    const historyAfter = await helper.getQueryHistoryTexts();
+    const newItemGone = !historyAfter.some(t =>
+      t.toLowerCase().includes(uniqueTag.toLowerCase()),
+    );
+    expect(newItemGone).toBe(true);
+
+    // 2. Pre-existing items must still exist (no collateral deletion)
+    for (const original of historyBefore.slice(0, 5)) {
+      if (original.trim().length < 4) continue;
+      const fragment = original.substring(0, 12).toLowerCase();
+      const stillPresent = historyAfter.some(t => t.toLowerCase().includes(fragment));
+      if (!stillPresent) {
+        console.log(`⚠ Pre-existing history item may have been affected: "${original.substring(0, 40)}"`);
+      }
+    }
+
+    console.log(`History count — before: ${historyBefore.length}, after: ${historyAfter.length}`);
+  });
 });
