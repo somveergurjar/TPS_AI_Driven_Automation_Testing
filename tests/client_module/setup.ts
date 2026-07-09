@@ -28,7 +28,9 @@ export const SELECTORS = {
 
   // Table
   clientTable:     'table',
-  clientTableRows: 'table tbody tr',
+  // Excludes the "No clients found matching your filters." placeholder row so
+  // zero-result assertions (toBe(0)) aren't thrown off by that row counting as 1.
+  clientTableRows: 'table tbody tr:not(:has-text("No clients found"))',
 
   // Table column headers
   colClientName:     'th:has-text("CLIENT NAME")',
@@ -146,26 +148,42 @@ export class ClientModuleHelpers {
 
   async navigateToClientModule() {
     const url = this.page.url();
+    const inClientSection = url.includes('/client');
     const onClientListing =
-      url.includes('/client') &&
+      inClientSection &&
       !url.includes('/new') &&
       !url.includes('/edit') &&
       !url.match(/\/client\/\d/);
 
     if (!onClientListing) {
-      const navButton = this.page.locator('a:has-text("Clients"), button:has-text("Clients")').first();
-      if (await navButton.count() > 0) {
-        await navButton.click({ timeout: TEST_CONFIG.timeouts.element });
+      if (inClientSection) {
+        // Clicking the sidebar "Clients" link no-ops when already inside the Client
+        // section (leaving an edit/detail sub-route) — go back through SPA history instead.
+        await this.page.goBack({ waitUntil: 'domcontentloaded' }).catch(() => {});
       } else {
-        await this.page.goto(TEST_CONFIG.clientModuleUrl, { waitUntil: 'domcontentloaded' });
+        const navButton = this.page.locator('a:has-text("Clients"), button:has-text("Clients")').first();
+        if (await navButton.count() > 0) {
+          await navButton.click({ timeout: TEST_CONFIG.timeouts.element });
+        } else {
+          await this.page.goto(TEST_CONFIG.clientModuleUrl, { waitUntil: 'domcontentloaded' });
+        }
       }
       await this.page.waitForLoadState('domcontentloaded', { timeout: TEST_CONFIG.timeouts.navigation });
       await this.page.waitForLoadState('networkidle', { timeout: TEST_CONFIG.timeouts.navigation }).catch(() => {});
     }
 
-    await this.page
-      .locator(SELECTORS.newClientButton)
-      .waitFor({ state: 'visible', timeout: TEST_CONFIG.timeouts.navigation });
+    const newClientBtn = this.page.locator(SELECTORS.newClientButton);
+    await newClientBtn
+      .waitFor({ state: 'visible', timeout: TEST_CONFIG.timeouts.navigation })
+      .catch(async () => {
+        // goBack() may not land on the listing (e.g. no prior history entry) — fall back
+        // to the sidebar link.
+        const navButton = this.page.locator('a:has-text("Clients"), button:has-text("Clients")').first();
+        if (await navButton.count() > 0) {
+          await navButton.click({ timeout: TEST_CONFIG.timeouts.element });
+        }
+        await newClientBtn.waitFor({ state: 'visible', timeout: TEST_CONFIG.timeouts.navigation });
+      });
   }
 
   async openNewClientForm() {
@@ -357,11 +375,11 @@ export class ClientModuleHelpers {
   }
 
   async getRecordCount(): Promise<number> {
-    const label = await this.page
-      .locator(SELECTORS.totalRecordsCount)
-      .first()
-      .innerText()
-      .catch(() => '0 records');
+    const badge = this.page.locator(SELECTORS.totalRecordsCount).first();
+    if (await badge.count() === 0) {
+      return await this.page.locator(SELECTORS.clientTableRows).count();
+    }
+    const label = await badge.innerText().catch(() => '');
     const match = label.match(/(\d+)/);
     if (match) return Number(match[1]);
     return await this.page.locator(SELECTORS.clientTableRows).count();
