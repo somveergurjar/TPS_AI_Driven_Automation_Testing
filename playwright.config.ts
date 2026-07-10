@@ -6,7 +6,7 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const isCI       = !!process.env.CI;
 const headless   = process.env.HEADLESS !== 'false';
-const workers    = isCI ? 1 : parseInt(process.env.WORKERS ?? '4');
+const workers    = parseInt(process.env.WORKERS ?? (isCI ? '1' : '4'));
 const retries    = isCI ? 2 : parseInt(process.env.RETRIES ?? '0');
 
 export default defineConfig({
