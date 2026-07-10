@@ -25,14 +25,14 @@ env:
   BASE_URL:   'https://dev.liveaccess.ai'
   LOGIN_URL:  'https://dev.liveaccess.ai/login'
   HEADLESS:   'true'
-  WORKERS:    '1'
+  WORKERS:    '4'
   RETRIES:    '2'
 
 jobs:
   test:
     name: E2E Tests – ${{ matrix.browser }}
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
