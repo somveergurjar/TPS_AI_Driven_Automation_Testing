@@ -89,6 +89,10 @@ export const SELECTORS = {
   saveClientButton: 'button:has-text("Save Client")',
   cancelButton:     'button:has-text("Cancel")',
 
+  // Back arrow icon at the top of the Create/Edit panel — the only way back to the
+  // listing, since the panel is an in-page overlay that never changes the URL.
+  formBackButton: 'main button:has(svg.lucide-arrow-right)',
+
   formPageTitle: 'h1:has-text("New Client"), h2:has-text("New Client"), h1:has-text("Edit Client"), h2:has-text("Edit Client")',
 
   basicInfoTab: '[role="tab"]:has-text("Basic Information"), button:has-text("Basic Information")',
@@ -147,32 +151,41 @@ export class ClientModuleHelpers {
   }
 
   async navigateToClientModule() {
-    const url = this.page.url();
-    const inClientSection = url.includes('/client');
-    const onClientListing =
-      inClientSection &&
-      !url.includes('/new') &&
-      !url.includes('/edit') &&
-      !url.match(/\/client\/\d/);
+    const newClientBtn = this.page.locator(SELECTORS.newClientButton);
 
-    if (!onClientListing) {
-      if (inClientSection) {
-        // Clicking the sidebar "Clients" link no-ops when already inside the Client
-        // section (leaving an edit/detail sub-route) — go back through SPA history instead.
-        await this.page.goBack({ waitUntil: 'domcontentloaded' }).catch(() => {});
-      } else {
-        const navButton = this.page.locator('a:has-text("Clients"), button:has-text("Clients")').first();
-        if (await navButton.count() > 0) {
-          await navButton.click({ timeout: TEST_CONFIG.timeouts.element });
-        } else {
-          await this.page.goto(TEST_CONFIG.clientModuleUrl, { waitUntil: 'domcontentloaded' });
-        }
-      }
-      await this.page.waitForLoadState('domcontentloaded', { timeout: TEST_CONFIG.timeouts.navigation });
-      await this.page.waitForLoadState('networkidle', { timeout: TEST_CONFIG.timeouts.navigation }).catch(() => {});
+    // Fast path — already on the listing (e.g. read-only tests, or repeated calls).
+    if (await newClientBtn.isVisible().catch(() => false)) {
+      return;
     }
 
-    const newClientBtn = this.page.locator(SELECTORS.newClientButton);
+    // The Create/Edit form is an in-page panel — the URL never changes away from
+    // /clients, so it can't be detected by URL alone. Its "back" affordance is the
+    // arrow icon button at the top of the panel; use that first.
+    const backBtn = this.page.locator(SELECTORS.formBackButton).first();
+    if (await backBtn.isVisible().catch(() => false)) {
+      await backBtn.click({ timeout: TEST_CONFIG.timeouts.element }).catch(() => {});
+      await this.page.waitForLoadState('networkidle', { timeout: TEST_CONFIG.timeouts.navigation }).catch(() => {});
+      if (await newClientBtn.isVisible({ timeout: 5000 }).catch(() => false)) return;
+    }
+
+    const url = this.page.url();
+    const inClientSection = url.includes('/client');
+
+    if (inClientSection) {
+      // Clicking the sidebar "Clients" link no-ops when already inside the Client
+      // section (leaving an edit/detail sub-route) — go back through SPA history instead.
+      await this.page.goBack({ waitUntil: 'domcontentloaded' }).catch(() => {});
+    } else {
+      const navButton = this.page.locator('a:has-text("Clients"), button:has-text("Clients")').first();
+      if (await navButton.count() > 0) {
+        await navButton.click({ timeout: TEST_CONFIG.timeouts.element });
+      } else {
+        await this.page.goto(TEST_CONFIG.clientModuleUrl, { waitUntil: 'domcontentloaded' });
+      }
+    }
+    await this.page.waitForLoadState('domcontentloaded', { timeout: TEST_CONFIG.timeouts.navigation });
+    await this.page.waitForLoadState('networkidle', { timeout: TEST_CONFIG.timeouts.navigation }).catch(() => {});
+
     await newClientBtn
       .waitFor({ state: 'visible', timeout: TEST_CONFIG.timeouts.navigation })
       .catch(async () => {
@@ -211,6 +224,17 @@ export class ClientModuleHelpers {
       state: 'visible',
       timeout: TEST_CONFIG.timeouts.navigation,
     });
+
+    // The Save Client button — and the CLIENT NAME field itself — can render
+    // before the client's data has finished loading asynchronously into the
+    // form, leaving the input visible but empty. Wait for it to actually be
+    // populated, not just present.
+    const nameInput = await this.getClientNameInput();
+    await nameInput.waitFor({ state: 'visible', timeout: TEST_CONFIG.timeouts.element });
+    await expect
+      .poll(() => nameInput.inputValue(), { timeout: TEST_CONFIG.timeouts.element })
+      .not.toBe('');
+
     await this.page.waitForTimeout(300);
   }
 
@@ -219,7 +243,7 @@ export class ClientModuleHelpers {
    * create and edit form regardless of HTML element type), then falls back to
    * the CSS selector list if the ARIA association is absent.
    */
-  private async getClientNameInput(): Promise<Locator> {
+  async getClientNameInput(): Promise<Locator> {
     const byLabel = this.page.getByLabel(/client name/i, { exact: false });
     if (await byLabel.count() > 0) return byLabel.first();
     return this.page.locator(SELECTORS.formClientName).first();

@@ -124,21 +124,32 @@ test.describe('Client Delete Tests', () => {
     }
   });
 
-  test('TC-CL-41: Verify total record count decreases by 1 after deletion', async () => {
+  test('TC-CL-41: Verify total record count decreases by 1 after deletion', async ({ page }) => {
     test.setTimeout(90000);
     const clientName = await helpers.createClient('DELCOUNT');
 
-    // createClient() already returns to the listing — just reset filters
-    await helpers.resetFilters();
-    const countBefore = await helpers.getRecordCount();
+    // The listing has no visible "total records" indicator on this build, and the
+    // table itself is paginated — so a global row-count comparison is unreliable
+    // when the real total exceeds one page. Instead, filter to this specific
+    // client: exactly 1 match before deletion, 0 after — a precise count delta
+    // of 1 for the record under test, without touching any other data.
+    await helpers.applyFilter(SELECTORS.clientNameFilter, clientName);
+    await expect
+      .poll(() => page.locator(SELECTORS.clientTableRows).count(), {
+        timeout: 10000,
+        intervals: [500, 500, 1000],
+      })
+      .toBe(1);
 
-    // Delete the client
     await helpers.deleteClientByName(clientName);
 
-    // Count should decrease
-    await helpers.resetFilters();
-    const countAfter = await helpers.getRecordCount();
-    expect(countAfter).toBeLessThan(countBefore);
+    await helpers.applyFilter(SELECTORS.clientNameFilter, clientName);
+    await expect
+      .poll(() => page.locator(SELECTORS.clientTableRows).count(), {
+        timeout: 10000,
+        intervals: [500, 500, 1000],
+      })
+      .toBe(0);
   });
 
   // ── AC-12 ──────────────────────────────────────────────────────────────────

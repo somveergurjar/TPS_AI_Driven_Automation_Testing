@@ -33,7 +33,7 @@ test.describe('Client Edit Tests', () => {
       await helpers.openEditForm(row);
 
       // Find the CLIENT NAME input via getByLabel (avoids CSS selector mismatch on edit form)
-      const nameField = page.getByLabel(/client name/i, { exact: false }).first();
+      const nameField = await helpers.getClientNameInput();
       await nameField.waitFor({ state: 'visible', timeout: 8000 });
 
       const prefilled = await nameField.inputValue();
@@ -56,7 +56,7 @@ test.describe('Client Edit Tests', () => {
       await helpers.openEditForm(row);
 
       // CLIENT NAME must be prefilled
-      const nameField = page.getByLabel(/client name/i, { exact: false }).first();
+      const nameField = await helpers.getClientNameInput();
       await nameField.waitFor({ state: 'visible', timeout: 8000 });
       const value = await nameField.inputValue();
       expect(value.trim()).not.toBe('');
@@ -101,7 +101,7 @@ test.describe('Client Edit Tests', () => {
       await row.waitFor({ state: 'visible', timeout: 10000 });
       await helpers.openEditForm(row);
 
-      const nameField = page.getByLabel(/client name/i, { exact: false }).first();
+      const nameField = await helpers.getClientNameInput();
       await nameField.waitFor({ state: 'visible', timeout: 8000 });
       await nameField.fill('');
       await nameField.fill(updatedName);
@@ -179,7 +179,7 @@ test.describe('Client Edit Tests', () => {
       await row.waitFor({ state: 'visible', timeout: 10000 });
       await helpers.openEditForm(row);
 
-      const nameField = page.getByLabel(/client name/i, { exact: false }).first();
+      const nameField = await helpers.getClientNameInput();
       await nameField.waitFor({ state: 'visible', timeout: 8000 });
       await nameField.fill('');
 
@@ -204,7 +204,7 @@ test.describe('Client Edit Tests', () => {
       await row.waitFor({ state: 'visible', timeout: 10000 });
       await helpers.openEditForm(row);
 
-      const nameField = page.getByLabel(/client name/i, { exact: false }).first();
+      const nameField = await helpers.getClientNameInput();
       await nameField.waitFor({ state: 'visible', timeout: 8000 });
       await nameField.fill(unsavedName);
 

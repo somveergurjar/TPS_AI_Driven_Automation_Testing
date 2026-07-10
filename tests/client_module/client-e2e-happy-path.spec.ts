@@ -59,7 +59,7 @@ test.describe('Client Module – End-to-End Happy Path', () => {
     await row.waitFor({ state: 'visible', timeout: 10000 });
     await helpers.openEditForm(row);
 
-    const nameField = page.getByLabel(/client name/i, { exact: false }).first();
+    const nameField = await helpers.getClientNameInput();
     await nameField.waitFor({ state: 'visible', timeout: 8000 });
 
     const prefilled = await nameField.inputValue();
@@ -250,7 +250,7 @@ test.describe('Client Module – End-to-End Happy Path', () => {
       // Open edit form
       await helpers.openEditForm(row);
 
-      const nameField = page.getByLabel(/client name/i, { exact: false }).first();
+      const nameField = await helpers.getClientNameInput();
       await nameField.waitFor({ state: 'visible', timeout: 8000 });
       await nameField.fill('');
       await nameField.fill(updatedName);
@@ -290,10 +290,11 @@ test.describe('Client Module – End-to-End Happy Path', () => {
       // Open edit page
       await helpers.openEditForm(row);
 
-      // Navigate back to listing
-      await page.goBack();
-      await page.waitForLoadState('domcontentloaded');
-      await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
+      // Navigate back to listing. The Create/Edit form is an in-page panel that
+      // never changes the URL, so the browser's real back button has no listing
+      // history entry to return to — the app's own back-arrow affordance (used by
+      // navigateToClientModule()) is the actual "back" action here.
+      await helpers.navigateToClientModule();
 
       // Listing must still be fully functional
       await expect(page.locator(SELECTORS.newClientButton)).toBeVisible({ timeout: 10000 });
