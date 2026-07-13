@@ -66,9 +66,12 @@ export const SELECTORS = {
   availableItemCard: 'main [class*="cursor-pointer"]:has(p)',
 
   // Modals / dialogs
-  deleteModal:        'div:has-text("Delete Equipment")',
-  deleteModalConfirm: 'button:has-text("Delete")',
-  deleteModalCancel:  'button:has-text("Cancel")',
+  // The full-screen backdrop wrapper (fixed inset-0 z-50) is the only element with
+  // this class combination, so it uniquely identifies the confirmation modal —
+  // unlike a plain `div:has-text(...)`, which also matches every ancestor wrapper.
+  deleteModal:        'div.fixed.inset-0.z-50:has-text("Delete Equipment")',
+  deleteModalConfirm: 'div.fixed.inset-0.z-50 button:has-text("Delete")',
+  deleteModalCancel:  'div.fixed.inset-0.z-50 button:has-text("Cancel")',
 
   // Toasts
   toastSuccess:     'text=/successfully/i',

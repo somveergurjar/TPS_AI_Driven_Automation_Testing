@@ -68,8 +68,24 @@ async function fillIdentificationTab(page: import('@playwright/test').Page) {
     if (!val) await enabledInputs.first().fill(TestDataGenerator.generateRandomDocumentName());
   }
 
-  // Document Type dropdown
-  await selectFirstDropdownOption(page, REV_SELECTORS.documentTypeInput);
+  // Category — native <select>, required, and Document Type stays disabled
+  // ("Select a category first") until this is chosen. Must run before Document Type.
+  const categorySelect = page.locator('select:has(option:has-text("Select category"))').first();
+  if ((await categorySelect.count()) > 0) {
+    await selectFirstNativeOption(categorySelect);
+    await page.waitForTimeout(300);
+  }
+
+  // Document Type — also a native <select> once Category unlocks it (not the
+  // custom input+dropdown pattern used elsewhere in this form).
+  const documentTypeSelect = page.locator('select:has(option:has-text("Select document type"))').first();
+  if ((await documentTypeSelect.count()) > 0) {
+    await selectFirstNativeOption(documentTypeSelect);
+    await page.waitForTimeout(300);
+  } else {
+    // Fallback for builds where Document Type uses the custom dropdown instead.
+    await selectFirstDropdownOption(page, REV_SELECTORS.documentTypeInput);
+  }
 
   // Supplier dropdown
   await selectFirstDropdownOption(page, REV_SELECTORS.supplierInput);
@@ -86,6 +102,21 @@ async function selectFirstDropdownOption(page: import('@playwright/test').Page, 
     if ((await firstOption.count()) > 0) {
       await firstOption.click();
       await page.waitForTimeout(300);
+      return true;
+    }
+  }
+  return false;
+}
+
+// Helper: select the first real (non-placeholder) option of a native <select>.
+// These option elements have no `value` attribute — the option's text is the
+// only way to identify and select a real choice.
+async function selectFirstNativeOption(select: import('@playwright/test').Locator): Promise<boolean> {
+  const options = await select.locator('option').all();
+  for (const opt of options) {
+    const text = (await opt.textContent()) ?? '';
+    if (text.trim() !== '' && !text.toLowerCase().includes('select')) {
+      await select.selectOption({ label: text.trim() });
       return true;
     }
   }
