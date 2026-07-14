@@ -5,8 +5,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  schedule:
-    - cron: '0 2 * * *'
+  # Daily scheduled run disabled — was firing automatically and consuming CI
+  # minutes/quota unnecessarily. Re-add if a nightly run is wanted again:
+  # schedule:
+  #   - cron: '0 2 * * *'
   workflow_dispatch:
     inputs:
       browser:
