@@ -1,10 +1,13 @@
 name: Playwright E2E Tests
 
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+  # Auto-run on push/PR is on hold until further notice — remove the comment
+  # markers below to re-enable. In the meantime, use workflow_dispatch (the
+  # Actions tab "Run workflow" button) to trigger manually.
+  # push:
+  #   branches: [main]
+  # pull_request:
+  #   branches: [main]
   # Daily scheduled run disabled — was firing automatically and consuming CI
   # minutes/quota unnecessarily. Re-add if a nightly run is wanted again:
   # schedule:
