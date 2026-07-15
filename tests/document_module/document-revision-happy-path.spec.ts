@@ -3,7 +3,7 @@
 
 import { test, expect } from '@playwright/test';
 import path from 'path';
-import { DocumentModuleHelpers, TEST_CONFIG, TestDataGenerator } from './setup';
+import { DocumentModuleHelpers, TEST_CONFIG, TestDataGenerator, selectFirstNativeOption } from './setup';
 
 // ---------------------------------------------------------------------------
 // Revision-tab selectors
@@ -111,18 +111,6 @@ async function selectFirstDropdownOption(page: import('@playwright/test').Page, 
 // Helper: select the first real (non-placeholder) option of a native <select>.
 // These option elements have no `value` attribute — the option's text is the
 // only way to identify and select a real choice.
-async function selectFirstNativeOption(select: import('@playwright/test').Locator): Promise<boolean> {
-  const options = await select.locator('option').all();
-  for (const opt of options) {
-    const text = (await opt.textContent()) ?? '';
-    if (text.trim() !== '' && !text.toLowerCase().includes('select')) {
-      await select.selectOption({ label: text.trim() });
-      return true;
-    }
-  }
-  return false;
-}
-
 // Helper: upload a file via the hidden file input
 async function uploadFile(page: import('@playwright/test').Page, filePath: string) {
   // Try clicking "Choose files" visible trigger first

@@ -142,7 +142,15 @@ test.describe('Equipment Module - CRUD Operations', () => {
     try {
       await helper.applyFilter(filterSelector, filterValue);
       const row = page.locator(`table tbody tr:has-text("${filterValue}")`).first();
-      await expect(row).toBeVisible({ timeout: TEST_CONFIG.timeouts.element });
+      // A record just created via the API/UI can take a moment to be reflected
+      // in the filtered listing under concurrent load — retry the filter once
+      // rather than failing on a one-off indexing lag.
+      try {
+        await expect(row).toBeVisible({ timeout: TEST_CONFIG.timeouts.element });
+      } catch {
+        await helper.applyFilter(filterSelector, filterValue);
+        await expect(row).toBeVisible({ timeout: TEST_CONFIG.timeouts.element });
+      }
 
       const deleteBtn = row.locator(SELECTORS.deleteActionIcon).first();
       await deleteBtn.click();

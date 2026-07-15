@@ -3,7 +3,7 @@
 
 import { test, expect } from '@playwright/test';
 import path from 'path';
-import { DocumentModuleHelpers, SELECTORS, TEST_CONFIG } from './setup';
+import { DocumentModuleHelpers, SELECTORS, TEST_CONFIG, selectFirstNativeOption } from './setup';
 
 const FIXTURE_PDF = path.resolve(__dirname, '../../test-data/calibration-certificate-rev1.pdf');
 
@@ -134,8 +134,23 @@ test.describe('Document Module - End-to-End Happy Path', () => {
         if ((await input.count()) > 0) await input.fill(uniqueDocName);
       }
 
-      // ── Step 5: Select Document Type ─────────────────────────────────────────
-      await pickFirstDropdownOption(page, E2E_SEL.documentTypeInput);
+      // ── Step 5a: Select Category — native <select>, required. Document Type
+      // stays disabled ("Select a category first") until this is chosen.
+      const categorySelect = page.locator('select:has(option:has-text("Select category"))').first();
+      if ((await categorySelect.count()) > 0) {
+        await selectFirstNativeOption(categorySelect);
+        await page.waitForTimeout(300);
+      }
+
+      // ── Step 5b: Select Document Type — native <select> once Category unlocks it ──
+      const docTypeSelect = page.locator('select:has(option:has-text("Select document type"))').first();
+      if ((await docTypeSelect.count()) > 0) {
+        await selectFirstNativeOption(docTypeSelect);
+        await page.waitForTimeout(300);
+      } else {
+        // Fallback for builds where Document Type uses the custom input+dropdown pattern.
+        await pickFirstDropdownOption(page, E2E_SEL.documentTypeInput);
+      }
 
       // ── Step 6: Select Supplier ───────────────────────────────────────────────
       await pickFirstDropdownOption(page, E2E_SEL.supplierInput);

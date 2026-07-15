@@ -15,34 +15,37 @@ test.describe('Equipment Module - Search and Filters', () => {
   });
 
   // TC_EQ_FILTER_001
+  // Uses its own freshly-created equipment rather than "whatever is currently
+  // row 1" — under parallel workers, other tests concurrently create/delete
+  // equipment, so a shared-row assumption is a real race condition.
   test('TC_EQ_FILTER_001 – Filter by TPS ID shows only matching records', async ({ page }) => {
-    const rows = page.locator(SELECTORS.equipmentTableRows);
-    if ((await rows.count()) === 0) { test.skip(true, 'No records to filter on'); return; }
-
-    const firstCell = await rows.first().locator('td').first().innerText();
-    const tpsId = firstCell.trim();
+    const { tpsId } = await helper.createEquipmentForTest(`FILTER1-${Date.now()}`);
     if (!tpsId) { test.skip(true, 'TPS ID value empty'); return; }
 
-    await helper.applyFilter(SELECTORS.tpsIdFilter, tpsId);
+    try {
+      await helper.applyFilter(SELECTORS.tpsIdFilter, tpsId);
 
-    const filtered = page.locator(`table tbody tr:has-text("${tpsId}")`);
-    await expect(filtered.first()).toBeVisible({ timeout: TEST_CONFIG.timeouts.element });
+      const filtered = page.locator(`table tbody tr:has-text("${tpsId}")`);
+      await expect(filtered.first()).toBeVisible({ timeout: TEST_CONFIG.timeouts.element });
+    } finally {
+      await helper.deleteEquipmentByFieldValue(SELECTORS.tpsIdFilter, tpsId);
+    }
   });
 
-  // TC_EQ_FILTER_002 – filter by the 2nd row's TPS ID (tests the same TPS-ID filter with a different value)
+  // TC_EQ_FILTER_002 – second, distinct self-created equipment record (same
+  // reasoning as FILTER_001 — no dependency on shared row position/order).
   test('TC_EQ_FILTER_002 – Filter by second row TPS ID returns matching records', async ({ page }) => {
-    const rows = page.locator(SELECTORS.equipmentTableRows);
-    const rowCount = await rows.count();
-    if (rowCount < 2) { test.skip(true, 'Need at least 2 records'); return; }
-
-    // Use the TPS ID from the second row so this test is distinct from FILTER_001
-    const tpsId = (await rows.nth(1).locator('td').first().innerText()).trim();
+    const { tpsId } = await helper.createEquipmentForTest(`FILTER2-${Date.now()}`);
     if (!tpsId) { test.skip(true, 'TPS ID value empty'); return; }
 
-    await helper.applyFilter(SELECTORS.tpsIdFilter, tpsId);
-    await expect
-      .poll(() => page.locator(SELECTORS.equipmentTableRows).count(), { timeout: TEST_CONFIG.timeouts.element })
-      .toBeGreaterThanOrEqual(1);
+    try {
+      await helper.applyFilter(SELECTORS.tpsIdFilter, tpsId);
+      await expect
+        .poll(() => page.locator(SELECTORS.equipmentTableRows).count(), { timeout: TEST_CONFIG.timeouts.element })
+        .toBeGreaterThanOrEqual(1);
+    } finally {
+      await helper.deleteEquipmentByFieldValue(SELECTORS.tpsIdFilter, tpsId);
+    }
   });
 
   // TC_EQ_FILTER_003

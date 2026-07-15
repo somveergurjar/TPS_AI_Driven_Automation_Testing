@@ -1,4 +1,4 @@
-import { expect, Page } from '@playwright/test';
+import { expect, Locator, Page } from '@playwright/test';
 import path from 'path';
 import { ENV } from '../../config/env';
 
@@ -58,6 +58,30 @@ export const SELECTORS = {
   paginationPrevious: 'button:has-text("Previous")',
   paginationPage: 'button[data-page]'
 };
+
+/**
+ * Selects the first real (non-placeholder) option of a native <select>, such as
+ * the Identification tab's Category / Document Type fields. Their <option>
+ * elements have no `value` attribute, so matching is done on option text. Real
+ * options can also populate asynchronously after the <select> itself is
+ * attached, so this polls for more than just the placeholder before reading.
+ */
+export async function selectFirstNativeOption(select: Locator): Promise<boolean> {
+  await expect
+    .poll(() => select.locator('option').count(), { timeout: 5000 })
+    .toBeGreaterThan(1)
+    .catch(() => {});
+
+  const options = await select.locator('option').all();
+  for (const opt of options) {
+    const text = (await opt.textContent()) ?? '';
+    if (text.trim() !== '' && !text.toLowerCase().includes('select')) {
+      await select.selectOption({ label: text.trim() });
+      return true;
+    }
+  }
+  return false;
+}
 
 export class DocumentModuleHelpers {
   constructor(private page: Page) {}
@@ -295,13 +319,28 @@ export class DocumentModuleHelpers {
       if ((await fallback.count()) > 0) await fallback.fill(docName);
     }
 
-    // Select Document Type — open dropdown, pick first option
-    const docTypeInput = this.page.locator('input[placeholder="SELECT OR TYPE TO ADD NEW..."]').first();
-    if ((await docTypeInput.count()) > 0) {
-      await docTypeInput.click();
-      const firstOption = this.page.locator('div.absolute.z-50 > div:first-child').first();
-      await firstOption.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
-      if ((await firstOption.count()) > 0) await firstOption.click();
+    // Select Category — native <select>, required. Document Type stays disabled
+    // ("Select a category first") until this is chosen, so it must run first.
+    const categorySelect = this.page.locator('select:has(option:has-text("Select category"))').first();
+    if ((await categorySelect.count()) > 0) {
+      await selectFirstNativeOption(categorySelect);
+      await this.page.waitForTimeout(300);
+    }
+
+    // Select Document Type — native <select> once Category unlocks it.
+    const docTypeSelect = this.page.locator('select:has(option:has-text("Select document type"))').first();
+    if ((await docTypeSelect.count()) > 0) {
+      await selectFirstNativeOption(docTypeSelect);
+      await this.page.waitForTimeout(300);
+    } else {
+      // Fallback for builds where Document Type uses the custom input+dropdown pattern.
+      const docTypeInput = this.page.locator('input[placeholder="SELECT OR TYPE TO ADD NEW..."]').first();
+      if ((await docTypeInput.count()) > 0) {
+        await docTypeInput.click();
+        const firstOption = this.page.locator('div.absolute.z-50 > div:first-child').first();
+        await firstOption.waitFor({ state: 'visible', timeout: 5000 }).catch(() => {});
+        if ((await firstOption.count()) > 0) await firstOption.click();
+      }
     }
 
     // Select Supplier — open dropdown, pick first option

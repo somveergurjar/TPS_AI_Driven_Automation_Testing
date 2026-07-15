@@ -100,8 +100,10 @@ test.describe('Equipment Module - End-to-End Happy Path', () => {
       // ── Step 14: Search by TPS ID ─────────────────────────────────────────────
       if (capturedTpsId) {
         await helper.applyFilter(SELECTORS.tpsIdFilter, capturedTpsId);
+        // Generous timeout: under concurrent multi-worker load the shared dev
+        // backend can take longer to reflect a just-created record in filters.
         await expect
-          .poll(() => page.locator(SELECTORS.equipmentTableRows).count(), { timeout: 10000 })
+          .poll(() => page.locator(SELECTORS.equipmentTableRows).count(), { timeout: 20000 })
           .toBeGreaterThanOrEqual(1);
 
         const tpsRow = page.locator(`table tbody tr:has-text("${capturedTpsId}")`).first();

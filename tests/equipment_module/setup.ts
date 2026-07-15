@@ -267,7 +267,9 @@ export class EquipmentModuleHelpers {
 
     const saveBtn = this.page.locator(SELECTORS.saveButton).first();
     await saveBtn.click();
-    await this.page.locator(SELECTORS.toastSuccess).waitFor({ state: 'visible', timeout: 15000 });
+    // Generous timeout: under concurrent multi-worker load, the shared dev
+    // backend's save response can genuinely take longer than a single-worker run.
+    await this.page.locator(SELECTORS.toastSuccess).waitFor({ state: 'visible', timeout: 30000 });
 
     await this.navigateToEquipmentModule();
     await this.waitForEquipmentGrid();
