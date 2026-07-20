@@ -1,11 +1,11 @@
 /**
  * Central environment configuration.
- * Reads from environment variables; falls back to dev defaults so
- * the suite runs locally without a .env file.
+ * Reads from environment variables — no credentials are hardcoded here.
  *
- * For CI or production runs, set the real values in your .env file:
- *   TEST_EMAIL=...
- *   TEST_PASSWORD=...
+ * Required for login-dependent tests, set in your .env file locally
+ * and as USER_EMAIL / USER_PASSWORD secrets in CI:
+ *   USER_EMAIL=...
+ *   USER_PASSWORD=...
  *   BASE_URL=...
  */
 const base = process.env.BASE_URL ?? 'https://dev.liveaccess.ai';
@@ -15,8 +15,8 @@ export const ENV = {
   loginUrl: `${base}/login`,
 
   credentials: {
-    email:    process.env.TEST_EMAIL    ?? 'somveergurjar.megaminds@gmail.com',
-    password: process.env.TEST_PASSWORD ?? 'Qwert@123',
+    email:    process.env.USER_EMAIL    ?? '',
+    password: process.env.USER_PASSWORD ?? '',
   },
 
   // Client credentials for revision-access isolation tests

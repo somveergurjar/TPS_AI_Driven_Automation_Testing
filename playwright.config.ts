@@ -13,6 +13,11 @@ export default defineConfig({
   testDir: './tests',
   globalTeardown: './global-teardown.ts',
 
+  // Not real test cases — kept in the repo for reference, excluded from runs:
+  //   zz-inspect.spec.ts: ad-hoc DOM-inspection script, no assertions
+  //   seed.spec.ts: empty placeholder scaffold
+  testIgnore: ['**/zz-inspect.spec.ts', '**/seed.spec.ts'],
+
   /* ── Execution ──────────────────────────────────────────────────────────── */
   fullyParallel: true,
   workers,

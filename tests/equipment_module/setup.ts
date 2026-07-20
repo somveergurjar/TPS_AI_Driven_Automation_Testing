@@ -1,5 +1,6 @@
 import { expect, Page } from '@playwright/test';
 import { ENV } from '../../config/env';
+import { performLogin } from '../support/loginFlow';
 
 export const TEST_CONFIG = {
   baseUrl:            ENV.baseUrl,
@@ -89,16 +90,14 @@ export class EquipmentModuleHelpers {
   constructor(private page: Page) {}
 
   async login() {
-    await this.page.context().clearCookies();
-    await this.page.goto(TEST_CONFIG.loginUrl, { waitUntil: 'domcontentloaded', timeout: TEST_CONFIG.timeouts.navigation });
-    await this.page.evaluate(() => {
-      window.localStorage.clear();
-      window.sessionStorage.clear();
+    await performLogin(this.page, {
+      loginUrl: TEST_CONFIG.loginUrl,
+      email: TEST_CONFIG.credentials.email,
+      password: TEST_CONFIG.credentials.password,
+      gotoTimeout: TEST_CONFIG.timeouts.navigation,
+      selectorTimeout: TEST_CONFIG.timeouts.navigation,
+      selectors: SELECTORS,
     });
-    await this.page.waitForSelector(SELECTORS.emailInput, { timeout: TEST_CONFIG.timeouts.navigation });
-    await this.page.fill(SELECTORS.emailInput, TEST_CONFIG.credentials.email);
-    await this.page.fill(SELECTORS.passwordInput, TEST_CONFIG.credentials.password);
-    await this.page.click(SELECTORS.loginButton);
     await this.page.waitForURL(url => !url.href.includes('/login'), {
       timeout: TEST_CONFIG.timeouts.navigation,
       waitUntil: 'domcontentloaded',

@@ -1,8 +1,9 @@
 import { expect, Page } from '@playwright/test';
 import { ENV } from '../../config/env';
+import { performLogin } from '../support/loginFlow';
 
 // TEST_CONFIG is derived from the central config so credentials and URLs
-// are never hardcoded here. Set TEST_EMAIL / TEST_PASSWORD in .env to override.
+// are never hardcoded here. Set USER_EMAIL / USER_PASSWORD in .env to override.
 export const TEST_CONFIG = {
   baseUrl:      ENV.baseUrl,
   loginUrl:     ENV.loginUrl,
@@ -48,17 +49,14 @@ export class TagModuleHelpers {
   constructor(private page: Page) {}
 
   async login() {
-    await this.page.context().clearCookies();
-    await this.page.goto(TEST_CONFIG.loginUrl, { waitUntil: 'domcontentloaded', timeout: TEST_CONFIG.timeouts.navigation * 3 });
-    await this.page.evaluate(() => {
-      window.localStorage.clear();
-      window.sessionStorage.clear();
+    await performLogin(this.page, {
+      loginUrl: TEST_CONFIG.loginUrl,
+      email: TEST_CONFIG.credentials.email,
+      password: TEST_CONFIG.credentials.password,
+      gotoTimeout: TEST_CONFIG.timeouts.navigation * 3,
+      selectorTimeout: TEST_CONFIG.timeouts.navigation,
+      selectors: SELECTORS,
     });
-
-    await this.page.waitForSelector(SELECTORS.emailInput, { timeout: TEST_CONFIG.timeouts.navigation });
-    await this.page.fill(SELECTORS.emailInput, TEST_CONFIG.credentials.email);
-    await this.page.fill(SELECTORS.passwordInput, TEST_CONFIG.credentials.password);
-    await this.page.click(SELECTORS.loginButton);
 
     // Wait for navigation to complete - either to tag module or a verification page
     await this.page.waitForLoadState('networkidle', { timeout: TEST_CONFIG.timeouts.navigation });
