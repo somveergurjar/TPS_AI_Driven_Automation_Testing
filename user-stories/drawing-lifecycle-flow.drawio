@@ -1,0 +1,252 @@
+<mxfile host="app.diagrams.net" version="24.0.0">
+  <diagram id="drawing-lifecycle-flow" name="Drawing Lifecycle Flow">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="4650" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ===================== SECTION BACKGROUND GROUPS (drawn first = behind the flow nodes) ===================== -->
+        <mxCell id="grpS1" value="&#9312; Create the drawing" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FEF9E7;strokeColor=#E9D68A;fontColor=#8A6D1A;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;" vertex="1" parent="1"><mxGeometry x="580" y="270" width="880" height="620" as="geometry" /></mxCell>
+        <mxCell id="grpS2" value="&#9313; Upload the required file package" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FEF9E7;strokeColor=#E9D68A;fontColor=#8A6D1A;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;" vertex="1" parent="1"><mxGeometry x="580" y="1530" width="880" height="810" as="geometry" /></mxCell>
+        <mxCell id="grpS3" value="&#9314; TPS engineering approval" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FEF9E7;strokeColor=#E9D68A;fontColor=#8A6D1A;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;" vertex="1" parent="1"><mxGeometry x="570" y="2330" width="910" height="510" as="geometry" /></mxCell>
+        <mxCell id="grpS4" value="&#9315; Client review" style="rounded=1;arcSize=6;whiteSpace=wrap;html=1;fillColor=#FEF9E7;strokeColor=#E9D68A;fontColor=#8A6D1A;fontStyle=1;fontSize=13;verticalAlign=top;align=left;spacingLeft=12;spacingTop=8;" vertex="1" parent="1"><mxGeometry x="10" y="2820" width="1450" height="750" as="geometry" /></mxCell>
+
+        <!-- ===================== FLOW: entry ===================== -->
+        <mxCell id="A0" value="Project Overall &#8594; Drawings tab" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#E5E0F5;strokeColor=#7B68C4;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="640" y="20" width="260" height="50" as="geometry" /></mxCell>
+        <mxCell id="A1" value="Click + Add Drawing" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="640" y="110" width="260" height="50" as="geometry" /></mxCell>
+        <mxCell id="A2" value="Add Controlled Drawing &#8212; modal opens" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="620" y="200" width="300" height="50" as="geometry" /></mxCell>
+
+        <!-- Section 1: Create the drawing -->
+        <mxCell id="B1" value="Title entered?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="660" y="300" width="220" height="100" as="geometry" /></mxCell>
+        <mxCell id="B1e" value="'Title is required.'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE4E1;strokeColor=#C0392B;fontColor=#7A2419;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1150" y="325" width="260" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="B2" value="Drawing Type selected?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="660" y="440" width="220" height="100" as="geometry" /></mxCell>
+        <mxCell id="B2e" value="'Drawing type is required.'&#10;Category stays disabled" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE4E1;strokeColor=#C0392B;fontColor=#7A2419;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1150" y="465" width="260" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="B3" value="Category unlocks &#8212; options filtered by Type &#183; table 1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="620" y="580" width="300" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="B4" value="Category selected?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="660" y="670" width="220" height="100" as="geometry" /></mxCell>
+        <mxCell id="B4e" value="'Category is required.'" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE4E1;strokeColor=#C0392B;fontColor=#7A2419;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1150" y="695" width="260" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="B5" value="Drawing No. auto-generated from Type + Category &#183; table 2" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="610" y="810" width="320" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="C1" value="Scope &#183; Origin &#183; Revision locked &#8594; PROJECT / PROJECT / R00" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="600" y="900" width="340" height="60" as="geometry" /></mxCell>
+        <mxCell id="C2" value="Optional: Link to System (searchable multi-select)" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="610" y="1000" width="320" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="C3" value="Approval Required toggle" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="660" y="1090" width="220" height="110" as="geometry" /></mxCell>
+        <mxCell id="C3a" value="Yes &#8212; default:&#10;TPS + Client approval both required" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=12;" vertex="1" parent="1"><mxGeometry x="280" y="1250" width="280" height="70" as="geometry" /></mxCell>
+        <mxCell id="C3b" value="No:&#10;Only TPS-level handling applies" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1010" y="1250" width="280" height="70" as="geometry" /></mxCell>
+
+        <mxCell id="D0" value="Click Create Drawing" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="660" y="1360" width="220" height="50" as="geometry" /></mxCell>
+        <mxCell id="D1" value="New row in grid&#10;Status AWAITING FILE &#183; TPS N/A &#183; Client N/A" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#FBF1D9;strokeColor=#D8B23C;fontColor=#7A5B06;fontSize=13;" vertex="1" parent="1"><mxGeometry x="610" y="1450" width="320" height="70" as="geometry" /></mxCell>
+
+        <!-- Section 2: Upload required file package -->
+        <mxCell id="E0" value="Open drawing &#8594; Drawing Detail page" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="620" y="1560" width="300" height="50" as="geometry" /></mxCell>
+        <mxCell id="E1" value="Upload Issue PDF" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="660" y="1650" width="220" height="50" as="geometry" /></mxCell>
+        <mxCell id="E2" value="File is a PDF?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="670" y="1740" width="200" height="100" as="geometry" /></mxCell>
+        <mxCell id="E2e" value="Reject &#8212; show expected format" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE4E1;strokeColor=#C0392B;fontColor=#7A2419;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1150" y="1765" width="260" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="E3" value="Upload Source File &#8212; format set by Drawing Type &#183; table 3" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="610" y="1880" width="320" height="50" as="geometry" /></mxCell>
+        <mxCell id="E4" value="Format matches?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="670" y="1970" width="200" height="100" as="geometry" /></mxCell>
+        <mxCell id="E4e" value="Reject &#8212; show expected format" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE4E1;strokeColor=#C0392B;fontColor=#7A2419;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1150" y="1995" width="260" height="50" as="geometry" /></mxCell>
+
+        <mxCell id="E5" value="Both required files in?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="660" y="2110" width="220" height="100" as="geometry" /></mxCell>
+        <mxCell id="E6" value="Status DRAFT / PENDING INTERNAL APPROVAL" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#FBF1D9;strokeColor=#D8B23C;fontColor=#7A5B06;fontSize=13;" vertex="1" parent="1"><mxGeometry x="610" y="2250" width="320" height="60" as="geometry" /></mxCell>
+
+        <!-- Section 3: TPS engineering approval -->
+        <mxCell id="F1" value="Super Admin / TPS Engineer reviews on Approval Details tab" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="600" y="2360" width="340" height="60" as="geometry" /></mxCell>
+        <mxCell id="F2" value="Decision" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="670" y="2460" width="200" height="100" as="geometry" /></mxCell>
+        <mxCell id="F2a" value="Issue found: Replace file in same revision &#8212; no new revision created" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1150" y="2470" width="300" height="80" as="geometry" /></mxCell>
+
+        <mxCell id="F3" value="TPS Approval APPROVED&#10;Client Approval AWAITING" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#E1F3EA;strokeColor=#2E9A63;fontColor=#0F4A2E;fontSize=13;" vertex="1" parent="1"><mxGeometry x="610" y="2600" width="320" height="60" as="geometry" /></mxCell>
+        <mxCell id="F4" value="Reverse Approval within 24h?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="660" y="2700" width="220" height="110" as="geometry" /></mxCell>
+
+        <!-- Section 4: Client review -->
+        <mxCell id="G0" value="Client Admin opens Approval Register &#8594; REVIEW &#8594; Approval Details" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="600" y="2850" width="340" height="60" as="geometry" /></mxCell>
+        <mxCell id="G1" value="Client records response" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1"><mxGeometry x="670" y="2950" width="200" height="110" as="geometry" /></mxCell>
+
+        <mxCell id="G6" value="Select Reason(s) &#8212; required" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=12;" vertex="1" parent="1"><mxGeometry x="40" y="3110" width="260" height="50" as="geometry" /></mxCell>
+        <mxCell id="G7" value="Enter Comments &#8212; required" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=12;" vertex="1" parent="1"><mxGeometry x="40" y="3200" width="260" height="50" as="geometry" /></mxCell>
+        <mxCell id="G8" value="Record Response" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=12;" vertex="1" parent="1"><mxGeometry x="40" y="3290" width="260" height="50" as="geometry" /></mxCell>
+        <mxCell id="G9" value="Client Approval REJECTED&#10;revision no longer valid" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#FBE4E1;strokeColor=#C0392B;fontColor=#7A2419;fontSize=12;strokeWidth=2;" vertex="1" parent="1"><mxGeometry x="40" y="3380" width="260" height="60" as="geometry" /></mxCell>
+        <mxCell id="G10" value="New revision (e.g. R01) required to address comments" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=12;" vertex="1" parent="1"><mxGeometry x="40" y="3480" width="260" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="G2" value="Optional attachment" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=12;" vertex="1" parent="1"><mxGeometry x="610" y="3110" width="320" height="50" as="geometry" /></mxCell>
+        <mxCell id="G3" value="Record Response" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=12;" vertex="1" parent="1"><mxGeometry x="610" y="3200" width="320" height="50" as="geometry" /></mxCell>
+        <mxCell id="G4" value="Client Approval APPROVED&#10;'Drawing is now Active'" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#E1F3EA;strokeColor=#2E9A63;fontColor=#0F4A2E;fontSize=12;" vertex="1" parent="1"><mxGeometry x="610" y="3290" width="320" height="60" as="geometry" /></mxCell>
+
+        <mxCell id="G5" value="Approved with Comments /&#10;Revise and Resubmit:&#10;fields not yet confirmed &#8212; open item" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#EEF1F4;strokeColor=#8A97A4;fontColor=#3A434D;fontSize=12;" vertex="1" parent="1"><mxGeometry x="1130" y="3100" width="300" height="100" as="geometry" /></mxCell>
+
+        <!-- Outside S4, per the artifact: Approval Register outcomes -->
+        <mxCell id="H1" value="Approval Register: both badges APPROVED &#8212; filed under Approved / Active" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#EEF1F4;strokeColor=#8A97A4;fontColor=#3A434D;fontSize=12;" vertex="1" parent="1"><mxGeometry x="580" y="3620" width="380" height="60" as="geometry" /></mxCell>
+        <mxCell id="H2" value="Approval Register:&#10;filed under Rejected" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#EEF1F4;strokeColor=#8A97A4;fontColor=#3A434D;fontSize=12;" vertex="1" parent="1"><mxGeometry x="200" y="3620" width="220" height="60" as="geometry" /></mxCell>
+
+        <!-- ===================== EDGES ===================== -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="A0" target="A1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="A1" target="A2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="A2" target="B1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e4" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B1" target="B1e"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B1e" target="A2"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1500" y="225" /></Array></mxGeometry></mxCell>
+        <mxCell id="e6" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B1" target="B2"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e7" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B2" target="B2e"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B2e" target="A2"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1560" y="225" /></Array></mxGeometry></mxCell>
+        <mxCell id="e9" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B2" target="B3"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B3" target="B4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e11" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B4" target="B4e"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B4e" target="A2"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1620" y="225" /></Array></mxGeometry></mxCell>
+        <mxCell id="e13" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B4" target="B5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="B5" target="C1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="C1" target="C2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="C2" target="C3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e17" value="Yes &#8212; default" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="C3" target="C3a"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e18" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="C3" target="C3b"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="C3a" target="D0"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="C3b" target="D0"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="D0" target="D1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="D1" target="E0"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E0" target="E1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E1" target="E2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e25" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E2" target="E2e"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E2e" target="E1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1500" y="1675" /></Array></mxGeometry></mxCell>
+        <mxCell id="e27" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E2" target="E3"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E3" target="E4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e29" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E4" target="E4e"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E4e" target="E3"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1500" y="1905" /></Array></mxGeometry></mxCell>
+        <mxCell id="e31" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E4" target="E5"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e32" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E5" target="E0">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1520" y="2160" /><mxPoint x="1520" y="1585" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e33" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E5" target="E6"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="E6" target="F1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="F1" target="F2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e36" value="Issue found" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="F2" target="F2a"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="F2a" target="F1"><mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1560" y="2390" /></Array></mxGeometry></mxCell>
+        <mxCell id="e38" value="Approve" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="F2" target="F3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="F3" target="F4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e40" value="Yes &#8212; Super Admin / TPS only" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="F4" target="F1">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="1560" y="2755" /><mxPoint x="1560" y="2390" /></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="e41" value="No / window closed" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="F4" target="G0"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G0" target="G1"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e43" value="Approved" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G1" target="G2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e44" value="Approved w/ Comments /&#10;Revise and Resubmit" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G1" target="G5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e45" value="Rejected" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G1" target="G6"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G2" target="G3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G3" target="G4"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G4" target="H1"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G6" target="G7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G7" target="G8"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G8" target="G9"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G9" target="G10"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="G9" target="H2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e54" value="New revision reopens file upload" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="G10" target="E0">
+          <mxGeometry relative="1" as="geometry"><Array as="points"><mxPoint x="-60" y="3510" /><mxPoint x="-60" y="1585" /></Array></mxGeometry>
+        </mxCell>
+
+        <!-- ===================== REFERENCE TABLES (matching the artifact's "02 Reference tables behind the flow") ===================== -->
+        <mxCell id="tblSectionTitle" value="Reference tables behind the flow" style="text;html=1;strokeColor=none;fillColor=none;fontSize=16;fontStyle=1;fontColor=#152230;align=left;verticalAlign=middle;" vertex="1" parent="1"><mxGeometry x="40" y="3730" width="600" height="30" as="geometry" /></mxCell>
+
+        <!-- Table 1: Category options by Drawing Type -->
+        <mxCell id="tbl1title" value="Table 1 &#8212; Category options by Drawing Type" style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontStyle=1;fontColor=#152230;align=left;verticalAlign=middle;" vertex="1" parent="1"><mxGeometry x="40" y="3770" width="500" height="25" as="geometry" /></mxCell>
+        <mxCell id="t1h1" value="Drawing Type" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="40" y="3800" width="260" height="40" as="geometry" /></mxCell>
+        <mxCell id="t1h2" value="Allowed Category" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="300" y="3800" width="600" height="40" as="geometry" /></mxCell>
+        <mxCell id="t1r1c1" value="P&amp;ID" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="3840" width="260" height="45" as="geometry" /></mxCell>
+        <mxCell id="t1r1c2" value="Process, Utility, Pneumatic, CIP" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="300" y="3840" width="600" height="45" as="geometry" /></mxCell>
+        <mxCell id="t1r2c1" value="Layout" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="3885" width="260" height="45" as="geometry" /></mxCell>
+        <mxCell id="t1r2c2" value="General, Process, Utility, CIP, Electrical, Piping, Foundation / Openings" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="300" y="3885" width="600" height="45" as="geometry" /></mxCell>
+        <mxCell id="t1r3c1" value="Component GA/3D" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="3930" width="260" height="45" as="geometry" /></mxCell>
+        <mxCell id="t1r3c2" value="Equipment" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="300" y="3930" width="600" height="45" as="geometry" /></mxCell>
+        <mxCell id="t1r4c1" value="Electrical" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="3975" width="260" height="45" as="geometry" /></mxCell>
+        <mxCell id="t1r4c2" value="Open item &#8212; list not yet confirmed" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#EEF1F4;strokeColor=#8A97A4;fontColor=#3A434D;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="300" y="3975" width="600" height="45" as="geometry" /></mxCell>
+
+        <!-- Table 2: Drawing No. prefix logic -->
+        <mxCell id="tbl2title" value="Table 2 &#8212; Drawing No. prefix logic" style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontStyle=1;fontColor=#152230;align=left;verticalAlign=middle;" vertex="1" parent="1"><mxGeometry x="1000" y="3770" width="500" height="25" as="geometry" /></mxCell>
+        <mxCell id="t2h1" value="Type + Category" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="1000" y="3800" width="380" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2h2" value="Prefix" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="1380" y="3800" width="160" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2h3" value="Counter" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="1540" y="3800" width="320" height="40" as="geometry" /></mxCell>
+
+        <mxCell id="t2r1c1" value="P&amp;ID + Process" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1000" y="3840" width="380" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r1c2" value="P" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#D7E1E8;fontColor=#2C5F8A;fontSize=12;align=center;fontStyle=1;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="1380" y="3840" width="160" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r1c3" value="own sequence" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1540" y="3840" width="320" height="40" as="geometry" /></mxCell>
+
+        <mxCell id="t2r2c1" value="P&amp;ID + Utility" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1000" y="3880" width="380" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r2c2" value="UT" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#D7E1E8;fontColor=#2C5F8A;fontSize=12;align=center;fontStyle=1;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="1380" y="3880" width="160" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r2c3" value="own sequence" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1540" y="3880" width="320" height="40" as="geometry" /></mxCell>
+
+        <mxCell id="t2r3c1" value="P&amp;ID + Pneumatic" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1000" y="3920" width="380" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r3c2" value="PN" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#D7E1E8;fontColor=#2C5F8A;fontSize=12;align=center;fontStyle=1;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="1380" y="3920" width="160" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r3c3" value="own sequence" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1540" y="3920" width="320" height="40" as="geometry" /></mxCell>
+
+        <mxCell id="t2r4c1" value="P&amp;ID + CIP" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1000" y="3960" width="380" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r4c2" value="CIP" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#D7E1E8;fontColor=#2C5F8A;fontSize=12;align=center;fontStyle=1;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="1380" y="3960" width="160" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r4c3" value="own sequence" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1540" y="3960" width="320" height="40" as="geometry" /></mxCell>
+
+        <mxCell id="t2r5c1" value="Layout + any category" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1000" y="4000" width="380" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r5c2" value="LA" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#D7E1E8;fontColor=#2C5F8A;fontSize=12;align=center;fontStyle=1;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="1380" y="4000" width="160" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r5c3" value="shared &#8212; Category doesn't change it" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1540" y="4000" width="320" height="40" as="geometry" /></mxCell>
+
+        <mxCell id="t2r6c1" value="Component GA/3D" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1000" y="4040" width="380" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r6c2" value="GA" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#D7E1E8;fontColor=#2C5F8A;fontSize=12;align=center;fontStyle=1;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="1380" y="4040" width="160" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r6c3" value="own sequence" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1540" y="4040" width="320" height="40" as="geometry" /></mxCell>
+
+        <mxCell id="t2r7c1" value="Electrical + any category" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1000" y="4080" width="380" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r7c2" value="EL" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#D7E1E8;fontColor=#2C5F8A;fontSize=12;align=center;fontStyle=1;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="1380" y="4080" width="160" height="40" as="geometry" /></mxCell>
+        <mxCell id="t2r7c3" value="shared &#8212; Category doesn't change it" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1540" y="4080" width="320" height="40" as="geometry" /></mxCell>
+
+        <!-- Table 3: Required File Package by Type -->
+        <mxCell id="tbl3title" value="Table 3 &#8212; Required File Package by Type" style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontStyle=1;fontColor=#152230;align=left;verticalAlign=middle;" vertex="1" parent="1"><mxGeometry x="40" y="4060" width="500" height="25" as="geometry" /></mxCell>
+        <mxCell id="t3h1" value="Drawing Type" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="40" y="4090" width="280" height="40" as="geometry" /></mxCell>
+        <mxCell id="t3h2" value="Issue PDF" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="320" y="4090" width="180" height="40" as="geometry" /></mxCell>
+        <mxCell id="t3h3" value="Source File" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="500" y="4090" width="400" height="40" as="geometry" /></mxCell>
+
+        <mxCell id="t3r1c1" value="P&amp;ID" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="4130" width="280" height="45" as="geometry" /></mxCell>
+        <mxCell id="t3r1c2" value="PDF" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=center;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="320" y="4130" width="180" height="45" as="geometry" /></mxCell>
+        <mxCell id="t3r1c3" value="DWG" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="500" y="4130" width="400" height="45" as="geometry" /></mxCell>
+
+        <mxCell id="t3r2c1" value="Layout" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="4175" width="280" height="45" as="geometry" /></mxCell>
+        <mxCell id="t3r2c2" value="PDF" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=center;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="320" y="4175" width="180" height="45" as="geometry" /></mxCell>
+        <mxCell id="t3r2c3" value="DWG" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="500" y="4175" width="400" height="45" as="geometry" /></mxCell>
+
+        <mxCell id="t3r3c1" value="Component GA/3D" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="4220" width="280" height="45" as="geometry" /></mxCell>
+        <mxCell id="t3r3c2" value="PDF" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=center;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="320" y="4220" width="180" height="45" as="geometry" /></mxCell>
+        <mxCell id="t3r3c3" value="STP / STEP or approved native" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="500" y="4220" width="400" height="45" as="geometry" /></mxCell>
+
+        <mxCell id="t3r4c1" value="Electrical" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="40" y="4265" width="280" height="45" as="geometry" /></mxCell>
+        <mxCell id="t3r4c2" value="PDF" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=center;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="320" y="4265" width="180" height="45" as="geometry" /></mxCell>
+        <mxCell id="t3r4c3" value="DWG or electrical native" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="500" y="4265" width="400" height="45" as="geometry" /></mxCell>
+
+        <!-- Table 4: Client response options -->
+        <mxCell id="tbl4title" value="Table 4 &#8212; Client response options" style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontStyle=1;fontColor=#152230;align=left;verticalAlign=middle;" vertex="1" parent="1"><mxGeometry x="1000" y="4160" width="500" height="25" as="geometry" /></mxCell>
+        <mxCell id="t4h1" value="Response" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="1000" y="4190" width="220" height="40" as="geometry" /></mxCell>
+        <mxCell id="t4h2" value="Fields" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="1220" y="4190" width="320" height="40" as="geometry" /></mxCell>
+        <mxCell id="t4h3" value="Result" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#E5EFF6;strokeColor=#9FB8CC;fontColor=#152230;fontStyle=1;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="1540" y="4190" width="320" height="40" as="geometry" /></mxCell>
+
+        <mxCell id="t4r1c1" value="Approved" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E1F3EA;strokeColor=#2E9A63;fontColor=#0F4A2E;fontSize=12;align=center;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="1000" y="4230" width="220" height="55" as="geometry" /></mxCell>
+        <mxCell id="t4r1c2" value="Attachment &#8212; optional" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1220" y="4230" width="320" height="55" as="geometry" /></mxCell>
+        <mxCell id="t4r1c3" value="Client Approval: Approved &#183; drawing becomes Active" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1540" y="4230" width="320" height="55" as="geometry" /></mxCell>
+
+        <mxCell id="t4r2c1" value="Approved with Comments" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#EEF1F4;strokeColor=#8A97A4;fontColor=#3A434D;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="1000" y="4285" width="220" height="55" as="geometry" /></mxCell>
+        <mxCell id="t4r2c23" value="Open item &#8212; not captured yet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1220" y="4285" width="640" height="55" as="geometry" /></mxCell>
+
+        <mxCell id="t4r3c1" value="Revise and Resubmit" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#EEF1F4;strokeColor=#8A97A4;fontColor=#3A434D;fontSize=12;align=center;" vertex="1" parent="1"><mxGeometry x="1000" y="4340" width="220" height="55" as="geometry" /></mxCell>
+        <mxCell id="t4r3c23" value="Open item &#8212; not captured yet" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1220" y="4340" width="640" height="55" as="geometry" /></mxCell>
+
+        <mxCell id="t4r4c1" value="Rejected" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FBE4E1;strokeColor=#C0392B;fontColor=#7A2419;fontSize=12;align=center;fontFamily=Consolas;" vertex="1" parent="1"><mxGeometry x="1000" y="4395" width="220" height="65" as="geometry" /></mxCell>
+        <mxCell id="t4r4c2" value="Reason(s) &#8212; required, Comments &#8212; required, Attachment &#8212; optional" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1220" y="4395" width="320" height="65" as="geometry" /></mxCell>
+        <mxCell id="t4r4c3" value="Client Approval: Rejected &#183; new revision required" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D7E1E8;fontColor=#152230;fontSize=12;align=left;spacing=6;" vertex="1" parent="1"><mxGeometry x="1540" y="4395" width="320" height="65" as="geometry" /></mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

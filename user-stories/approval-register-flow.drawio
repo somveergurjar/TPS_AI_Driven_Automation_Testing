@@ -1,0 +1,110 @@
+<mxfile host="app.diagrams.net" version="24.0.0">
+  <diagram id="approval-register-flow" name="Approval Register Flow">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Start -->
+        <mxCell id="n1" value="Project &#8594; Approvals tab" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#E5E0F5;strokeColor=#7B68C4;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="700" y="40" width="220" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n2" value="Approval Register loads" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="680" y="140" width="260" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n3" value="Default view: OUTSTANDING chip active&#10;&#8212; TPS and/or Client approval still pending" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#FBF1D9;strokeColor=#D8B23C;fontColor=#7A5B06;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="620" y="240" width="380" height="70" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n4" value="User picks a status chip" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="700" y="360" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <!-- Branch row -->
+        <mxCell id="n5" value="All &#8212; Every drawing:&#10;Outstanding + Approved/Active + Rejected + Superseded" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#EEF1F4;strokeColor=#8A97A4;fontColor=#3A434D;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="20" y="540" width="260" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n6" value="Outstanding &#8212;&#10;TPS and/or Client approval still pending" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#FBF1D9;strokeColor=#D8B23C;fontColor=#7A5B06;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="310" y="540" width="260" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n7" value="Approved / Active &#8212;&#10;TPS Approval = Approved AND Client Approval = Approved" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#E1F3EA;strokeColor=#2E9A63;fontColor=#0F4A2E;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="600" y="540" width="260" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n8" value="Rejected &#8212;&#10;Client Admin recorded a Rejected response" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#FBE4E1;strokeColor=#C0392B;fontColor=#7A2419;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="890" y="540" width="260" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n9" value="Superseded &#8212;&#10;Revision no longer active: inactive or expired" style="rounded=1;arcSize=30;whiteSpace=wrap;html=1;fillColor=#EEF1F4;strokeColor=#8A97A4;fontColor=#3A434D;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="540" width="260" height="100" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n10" value="Table updates:&#10;Drawing &#183; Rev &#183; Type &#183; Scope &#183; Title &#183; TPS Approval &#183; Client Approval &#183; Actions" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="590" y="700" width="380" height="80" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n11" value="Optional: narrow further with per-column filters" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="630" y="820" width="300" height="60" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n12" value="Click Reset Filters?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="690" y="920" width="220" height="110" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n13" value="Click REVIEW on a row" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#EDEAFB;strokeColor=#9B8FD9;fontColor=#2C2350;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="690" y="1070" width="220" height="50" as="geometry" />
+        </mxCell>
+
+        <mxCell id="n14" value="Opens that drawing's Approval Details tab" style="rounded=1;arcSize=50;whiteSpace=wrap;html=1;fillColor=#E1F3EA;strokeColor=#2E9A63;fontColor=#0F4A2E;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="670" y="1160" width="260" height="60" as="geometry" />
+        </mxCell>
+
+        <!-- Edges -->
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n1" target="n2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n2" target="n3"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n3" target="n4"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e4" value="All" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n4" target="n5"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e5" value="Outstanding" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n4" target="n6"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" value="Approved / Active" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n4" target="n7"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" value="Rejected" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n4" target="n8"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" value="Superseded" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n4" target="n9"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n5" target="n10"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n6" target="n10"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n7" target="n10"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n8" target="n10"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n9" target="n10"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n10" target="n11"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n11" target="n12"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e16" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="n12" target="n3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1200" y="975" />
+              <mxPoint x="1200" y="275" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="e17" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n12" target="n13"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;" edge="1" parent="1" source="n13" target="n14"><mxGeometry relative="1" as="geometry" /></mxCell>
+
+        <mxCell id="e19" value="TPS approves / Client responds" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;exitX=1;exitY=0.5;entryX=1;entryY=0.5;" edge="1" parent="1" source="n14" target="n2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1350" y="1190" />
+              <mxPoint x="1350" y="165" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
